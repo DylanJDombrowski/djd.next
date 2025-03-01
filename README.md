@@ -34,3 +34,73 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+```
+djd.next
+├─ eslint.config.mjs
+├─ next.config.ts
+├─ package-lock.json
+├─ package.json
+├─ postcss.config.mjs
+├─ public
+│  ├─ file.svg
+│  ├─ globe.svg
+│  ├─ next.svg
+│  ├─ vercel.svg
+│  └─ window.svg
+├─ README.md
+├─ src
+│  ├─ app
+│  │  ├─ (site)
+│  │  │  ├─ blog
+│  │  │  │  ├─ page.tsx
+│  │  │  │  └─ [slug]
+│  │  │  │     └─ page.tsx
+│  │  │  ├─ contact
+│  │  │  │  └─ page.tsx
+│  │  │  ├─ page.tsx
+│  │  │  ├─ projects
+│  │  │  │  ├─ page.tsx
+│  │  │  │  └─ [slug]
+│  │  │  │     └─ page.tsx
+│  │  │  └─ services
+│  │  │     ├─ page.tsx
+│  │  │     └─ [slug]
+│  │  │        └─ page.tsx
+│  │  ├─ api
+│  │  │  ├─ contact
+│  │  │  │  └─ route.ts
+│  │  │  └─ newsletter
+│  │  │     └─ subscribe.ts
+│  │  ├─ components
+│  │  │  ├─ blog
+│  │  │  │  ├─ post-card.tsx
+│  │  │  │  └─ series-card.tsx
+│  │  │  ├─ forms
+│  │  │  │  ├─ contact-form.tsx
+│  │  │  │  └─ newsletter-form.tsx
+│  │  │  ├─ layout
+│  │  │  │  ├─ footer.tsx
+│  │  │  │  ├─ header.tsx
+│  │  │  │  └─ navigation.tsx
+│  │  │  ├─ projects
+│  │  │  │  └─ project-card.tsx
+│  │  │  ├─ services
+│  │  │  │  └─ service-card.tsx
+│  │  │  └─ ui
+│  │  │     ├─ button.tsx
+│  │  │     └─ card.tsx
+│  │  ├─ favicon.ico
+│  │  ├─ globals.css
+│  │  ├─ layout.tsx
+│  │  └─ page.tsx
+│  └─ lib
+│     ├─ metadata.ts
+│     ├─ queries.ts
+│     ├─ sanity.ts
+│     ├─ supabase.ts
+│     └─ utils.ts
+├─ tailwind.config.js
+└─ tsconfig.json
+
+```
