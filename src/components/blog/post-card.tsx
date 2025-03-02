@@ -2,13 +2,12 @@
 import Link from "next/link";
 import Image from "next/image";
 import { formatDate } from "@/lib/utils";
-import { urlForImage } from "@/lib/image";
 
 interface PostCardProps {
   title: string;
   excerpt: string;
-  slug: string; // Change this from { current: string } to string
-  mainImage?: string;
+  slug: string;
+  mainImage: string | null;
   publishedAt?: string;
   categories?: string[];
 }
@@ -23,18 +22,13 @@ export default function PostCard({
 }: PostCardProps) {
   return (
     <div className="bg-white rounded-lg overflow-hidden shadow-md border border-gray-200/10 h-full flex flex-col">
-      {mainImage ? (
-        <div className="relative h-48">
-          <Image
-            src={mainImage || "/placeholder-image.jpg"}
-            alt={title}
-            fill
-            className="object-cover"
-          />
-        </div>
-      ) : (
-        <div className="h-48 bg-gray-200/10"></div>
-      )}
+      <div className="relative h-48">
+        {mainImage ? (
+          <Image src={mainImage} alt={title} fill className="object-cover" />
+        ) : (
+          <div className="h-full w-full bg-gray-200/10"></div>
+        )}
+      </div>
 
       <div className="p-6 flex flex-col flex-grow">
         {categories && categories.length > 0 && (

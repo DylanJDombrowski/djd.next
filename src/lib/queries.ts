@@ -96,6 +96,37 @@ export const postQuery = `
   }
 `;
 
+export const seriesQuery = `
+  *[_type == "series"] | order(title asc) {
+    _id,
+    title,
+    "slug": slug.current,
+    description,
+    "mainImage": mainImage.asset->url,
+    status,
+    "postCount": count(*[_type == "post" && references(^._id)])
+  }
+`;
+
+export const singleSeriesQuery = `
+  *[_type == "series" && slug.current == $slug][0] {
+    _id,
+    title,
+    "slug": slug.current,
+    description,
+    "mainImage": mainImage.asset->url,
+    status,
+    "posts": *[_type == "post" && references(^._id)] | order(publishedAt desc) {
+      _id,
+      title,
+      "slug": slug.current,
+      excerpt,
+      publishedAt,
+      "mainImage": mainImage.asset->url
+    }
+  }
+`;
+
 export const featuredContentQuery = `{
   "featuredServices": *[_type == "service" && featured == true] | order(order asc)[0...3] {
     _id,

@@ -20,7 +20,7 @@ export default function AboutPage() {
             <div className="md:w-1/3">
               <div className="rounded-lg overflow-hidden">
                 <Image
-                  src="/images/dylan-profile.jpg" // Replace with your actual image
+                  src="/about.jpg" // Replace with your actual image
                   alt="Dylan J. Dombrowski"
                   width={400}
                   height={400}

@@ -10,19 +10,8 @@ export const metadata: Metadata = {
     "Portfolio of web development and IT consulting projects by Dylan J. Dombrowski.",
 };
 
-interface Project {
-  _id: string;
-  title: string;
-  slug: { current: string };
-  description: string;
-  mainImage?: any;
-  client?: string;
-  projectDate?: string;
-  technologies?: string[];
-}
-
 async function getProjects() {
-  return sanityFetch<Project[]>({ query: projectsQuery });
+  return sanityFetch<any>({ query: projectsQuery });
 }
 
 export default async function ProjectsPage() {
@@ -40,7 +29,7 @@ export default async function ProjectsPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {projects.map((project) => (
+          {projects.map((project: any) => (
             <ProjectCard
               key={project._id}
               title={project.title}
