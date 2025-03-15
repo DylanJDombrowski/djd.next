@@ -1,20 +1,21 @@
 // src/components/forms/newsletter-form.tsx
 "use client";
-
 import { useState } from "react";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 export default function NewsletterForm() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<
     "idle" | "loading" | "success" | "error"
   >("idle");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("loading");
 
     try {
+      // Use the API route instead of direct Supabase insert
       const response = await fetch("/api/newsletter/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -27,19 +28,24 @@ export default function NewsletterForm() {
         throw new Error(data.error || "Failed to subscribe");
       }
 
+      // Handle success
       setStatus("success");
+      setMessage(data.message || "Thank you for subscribing to my newsletter!");
       setEmail("");
 
       // Reset success status after 5 seconds
       setTimeout(() => {
         setStatus("idle");
+        setMessage("");
       }, 5000);
     } catch (error) {
       setStatus("error");
-      setErrorMessage(
-        error instanceof Error ? error.message : "Failed to subscribe"
+      setMessage(
+        error instanceof Error
+          ? error.message
+          : "Failed to subscribe. Please try again."
       );
-      console.error("Error subscribing to newsletter:", error);
+      console.error("Newsletter error:", error);
     }
   };
 
@@ -48,10 +54,12 @@ export default function NewsletterForm() {
       <div className="flex flex-col sm:flex-row gap-2">
         <input
           type="email"
+          id="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Enter your email"
           className="flex-grow px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange"
+          disabled={status === "loading"}
           required
         />
         <button
@@ -63,15 +71,13 @@ export default function NewsletterForm() {
         </button>
       </div>
 
-      {status === "success" && (
-        <p className="text-green-600 text-sm">
-          Thank you for subscribing to my newsletter!
-        </p>
-      )}
-
-      {status === "error" && (
-        <p className="text-red-600 text-sm">
-          {errorMessage || "There was an error subscribing. Please try again."}
+      {message && (
+        <p
+          className={`text-sm ${
+            status === "success" ? "text-green-600" : "text-red-600"
+          }`}
+        >
+          {message}
         </p>
       )}
     </form>
