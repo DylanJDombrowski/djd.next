@@ -1,3 +1,4 @@
+// src/lib/sanity.ts
 import { createClient } from "next-sanity";
 
 export const client = createClient({
@@ -13,7 +14,7 @@ export async function sanityFetch<T>({
   tags = [],
 }: {
   query: string;
-  params?: Record<string, any>;
+  params?: Record<string, unknown>; // Changed from 'any' to 'unknown'
   tags?: string[];
 }): Promise<T> {
   try {

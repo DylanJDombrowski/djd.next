@@ -4,7 +4,15 @@ import { client } from "./sanity";
 
 const builder = imageUrlBuilder(client);
 
-export function urlForImage(source: any) {
+// Define a more specific type for Sanity images
+interface SanityImageSource {
+  asset?: {
+    _ref?: string;
+  };
+  [key: string]: any; // Allow other properties but specify the required ones
+}
+
+export function urlForImage(source: SanityImageSource) {
   if (!source?.asset?._ref) {
     return {
       url: () => null,
