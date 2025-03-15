@@ -1,15 +1,12 @@
-// src/components/projects/project-card.tsx
 import Link from "next/link";
 import Image from "next/image";
-import { formatDate } from "@/lib/utils";
 import { urlForImage } from "@/lib/image";
 
 interface ProjectCardProps {
   title: string;
   description: string;
-  slug: string; // Change this from { current: string } to string
-  mainImage?: any;
-  imageUrl?: string;
+  slug: string;
+  imageUrl?: any;
   client?: string;
   date?: string;
   technologies?: string[];
@@ -20,31 +17,36 @@ export default function ProjectCard({
   title,
   description,
   slug,
-  mainImage,
-  imageUrl: directImageUrl,
+  imageUrl,
   client,
   date,
   technologies,
   isDark = false,
 }: ProjectCardProps) {
-  // Handle either mainImage (Sanity reference) or imageUrl (direct URL)
-  const imageUrl = mainImage ? urlForImage(mainImage).url() : directImageUrl;
+  // Create a proper image URL from Sanity image reference
+  const imageUrlString = imageUrl ? urlForImage(imageUrl).url() : null;
 
   return (
     <div
       className={`rounded-lg overflow-hidden border ${
         isDark
           ? "bg-navy/30 border-white/10 text-white"
-          : "bg-white border-gray-200/10 text-navy"
+          : "bg-white border-gray/10 text-navy"
       }`}
     >
-      {imageUrl ? (
+      {imageUrlString ? (
         <div className="relative h-48 md:h-64">
-          <Image src={imageUrl} alt={title} fill className="object-cover" />
+          <Image
+            src={imageUrlString}
+            alt={title}
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover"
+          />
         </div>
       ) : (
         <div
-          className={`h-48 md:h-64 ${isDark ? "bg-gray-700/20" : "bg-gray-200/10"}`}
+          className={`h-48 md:h-64 ${isDark ? "bg-gray/20" : "bg-gray/10"}`}
         ></div>
       )}
 
@@ -82,7 +84,7 @@ export default function ProjectCard({
           <div
             className={`text-sm mb-4 ${isDark ? "text-beige/70" : "text-navy/70"}`}
           >
-            {formatDate(date)}
+            {date}
           </div>
         )}
 

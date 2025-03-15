@@ -10,12 +10,12 @@ export const metadata: Metadata = {
     "Portfolio of web development and IT consulting projects by Dylan J. Dombrowski.",
 };
 
-async function getProjects() {
+async function getProps() {
   return sanityFetch<any>({ query: projectsQuery });
 }
 
 export default async function ProjectsPage() {
-  const projects = await getProjects();
+  const projects = await getProps();
 
   return (
     <div className="py-16 md:py-24">
@@ -35,7 +35,7 @@ export default async function ProjectsPage() {
               title={project.title}
               description={project.description}
               slug={project.slug}
-              mainImage={project.mainImage}
+              imageUrl={project.mainImage}
               client={project.client}
               date={project.projectDate}
               technologies={project.technologies}

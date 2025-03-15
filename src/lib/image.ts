@@ -7,7 +7,7 @@ const builder = imageUrlBuilder(client);
 export function urlForImage(source: any) {
   if (!source?.asset?._ref) {
     return {
-      url: () => "",
+      url: () => null,
       width: () => 0,
       height: () => 0,
       format: () => "",
