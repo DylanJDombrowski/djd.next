@@ -3,6 +3,7 @@ import { sanityFetch } from "@/lib/sanity";
 import { servicesQuery } from "@/lib/queries";
 import ServiceCard from "@/components/services/service-card";
 import { Metadata } from "next";
+import { Service } from "@/types";
 
 export const metadata: Metadata = {
   title: "Services | Dylan J. Dombrowski",
@@ -29,12 +30,12 @@ export default async function ServicesPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {services.map((service: any) => (
+          {services.map((service: Service) => (
             <ServiceCard
               key={service._id}
               title={service.title}
               description={service.shortDescription}
-              slug={service.slug}
+              slug={service.slug.current}
               icon={service.icon}
             />
           ))}

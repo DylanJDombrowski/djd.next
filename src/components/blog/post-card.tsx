@@ -2,15 +2,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { formatDate } from "@/lib/utils";
-
-interface PostCardProps {
-  title: string;
-  excerpt: string;
-  slug: string;
-  mainImage: string | null;
-  publishedAt?: string;
-  categories?: string[];
-}
+import { PostCardProps, SanityImage } from "@/types";
+import { getImageUrl } from "@/lib/image";
 
 export default function PostCard({
   title,
@@ -20,15 +13,18 @@ export default function PostCard({
   publishedAt,
   categories,
 }: PostCardProps) {
+  // Get the image URL from any image source
+  const imageUrl = getImageUrl(mainImage);
+
   return (
-    <div className="bg-white rounded-lg overflow-hidden shadow-md border border-gray-200/10 h-full flex flex-col">
-      <div className="relative h-48">
-        {mainImage ? (
-          <Image src={mainImage} alt={title} fill className="object-cover" />
-        ) : (
-          <div className="h-full w-full bg-gray-200/10"></div>
-        )}
-      </div>
+    <div className="bg-white rounded-lg overflow-hidden shadow-md border border-gray/10 h-full flex flex-col">
+      {imageUrl ? (
+        <div className="h-48 relative">
+          <Image src={imageUrl} alt={title} fill className="object-cover" />
+        </div>
+      ) : (
+        <div className="h-48 bg-gray/10"></div>
+      )}
 
       <div className="p-6 flex flex-col flex-grow">
         {categories && categories.length > 0 && (

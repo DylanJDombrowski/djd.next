@@ -1,31 +1,23 @@
+// src/components/projects/project-card.tsx
 import Link from "next/link";
 import Image from "next/image";
-import { urlForImage } from "@/lib/image";
-import { SanityImageSource } from "@sanity/image-url/lib/types/types";
-
-interface ProjectCardProps {
-  title: string;
-  description: string;
-  slug: string;
-  imageUrl?: SanityImageSource;
-  client?: string;
-  date?: string;
-  technologies?: string[];
-  isDark?: boolean;
-}
+import { getImageUrl } from "@/lib/image";
+import { ProjectCardProps, SanityImage } from "@/types";
 
 export default function ProjectCard({
   title,
   description,
   slug,
   imageUrl,
+  mainImage, // For compatibility
   client,
   date,
   technologies,
   isDark = false,
 }: ProjectCardProps) {
-  // Create a proper image URL from Sanity image reference
-  const imageUrlString = imageUrl ? urlForImage(imageUrl).url() : null;
+  // Handle both imageUrl and mainImage props
+  const displayImageUrl =
+    imageUrl || (mainImage ? getImageUrl(mainImage) : null);
 
   return (
     <div
@@ -35,14 +27,14 @@ export default function ProjectCard({
           : "bg-white border-gray/10 text-navy"
       }`}
     >
-      {imageUrlString ? (
-        <Image
-          src={imageUrlString}
-          alt={title}
-          fill
-          sizes="(max-width: 768px) 100vw, 50vw"
-          className="object-cover"
-        />
+      {displayImageUrl ? (
+        <div className="relative h-48 md:h-64">
+          <img
+            src={displayImageUrl}
+            alt={title}
+            className="w-full h-full object-cover"
+          />
+        </div>
       ) : (
         <div
           className={`h-48 md:h-64 ${isDark ? "bg-gray/20" : "bg-gray/10"}`}

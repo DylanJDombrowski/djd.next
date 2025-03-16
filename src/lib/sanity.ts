@@ -14,7 +14,7 @@ export async function sanityFetch<T>({
   tags = [],
 }: {
   query: string;
-  params?: Record<string, unknown>; // Changed from 'any' to 'unknown'
+  params?: Record<string, unknown>;
   tags?: string[];
 }): Promise<T> {
   try {

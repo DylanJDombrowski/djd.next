@@ -6,27 +6,9 @@ import { Metadata } from "next";
 import { PortableText } from "@portabletext/react";
 import Image from "next/image";
 import ProjectCard from "@/components/projects/project-card";
-import { urlForImage } from "@/lib/image";
+import { getImageUrl } from "@/lib/image";
 import { portableTextComponents } from "@/lib/portableTextComponents";
-
-// Define type for service data
-interface Service {
-  _id: string;
-  title: string;
-  slug: string;
-  shortDescription: string;
-  body: any;
-  features?: string[];
-  mainImage?: any;
-  ctaText?: string;
-  relatedProjects?: Array<{
-    _id: string;
-    title: string;
-    slug: string;
-    description: string;
-    mainImage?: any;
-  }>;
-}
+import { RelatedProject, Service } from "@/types";
 
 // Generate static paths
 export async function generateStaticParams() {
@@ -44,7 +26,6 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
-  // Explicitly wait for params to be resolved
   const slug = params.slug;
 
   try {
@@ -68,11 +49,16 @@ export async function generateMetadata({
   }
 }
 
-async function getService(slug: string): Promise<Service> {
-  return sanityFetch<Service>({
-    query: serviceQuery,
-    params: { slug },
-  });
+async function getService(slug: string): Promise<Service | null> {
+  try {
+    return await sanityFetch<Service>({
+      query: serviceQuery,
+      params: { slug },
+    });
+  } catch (error) {
+    console.error("Error fetching service:", error);
+    return null;
+  }
 }
 
 export default async function ServicePage({
@@ -80,15 +66,17 @@ export default async function ServicePage({
 }: {
   params: { slug: string };
 }) {
-  // Explicitly wait for params to be resolved
-  const slug = params.slug;
-
   try {
-    const service = await getService(slug);
+    const service = await getService(params.slug);
 
     if (!service) {
       notFound();
     }
+
+    // Get the image URL from the Sanity image object
+    const mainImageUrl = service.mainImage
+      ? getImageUrl(service.mainImage)
+      : null;
 
     return (
       <div className="py-16 md:py-24">
@@ -117,10 +105,10 @@ export default async function ServicePage({
               )}
             </div>
 
-            {service.mainImage && (
+            {mainImageUrl && (
               <div className="mb-12">
                 <Image
-                  src={urlForImage(service.mainImage).url()}
+                  src={mainImageUrl}
                   alt={service.title}
                   width={1200}
                   height={675}
@@ -147,8 +135,12 @@ export default async function ServicePage({
                       key={project._id}
                       title={project.title}
                       description={project.description}
-                      slug={project.slug}
-                      mainImage={project.mainImage}
+                      slug={
+                        typeof project.slug === "string"
+                          ? project.slug
+                          : project.slug.current
+                      }
+                      imageUrl={getImageUrl(project.mainImage)}
                     />
                   ))}
                 </div>
@@ -160,16 +152,16 @@ export default async function ServicePage({
                 Ready to Get Started?
               </h2>
               <p className="mb-6">
-                Let's discuss how I can help you with your{" "}
+                Let&apos;s discuss how I can help you with your{" "}
                 {service.title.toLowerCase()} needs.
               </p>
 
-              <a
+              <link
                 href="/contact"
                 className="inline-block bg-orange hover:bg-orange/90 text-white font-bold py-3 px-6 rounded-md transition"
               >
                 {service.ctaText || "Get in Touch"}
-              </a>
+              </link>
             </div>
           </div>
         </div>

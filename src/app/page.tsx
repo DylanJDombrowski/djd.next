@@ -6,6 +6,8 @@ import ProjectCard from "@/components/projects/project-card";
 import PostCard from "@/components/blog/post-card";
 import { Metadata } from "next";
 import Link from "next/link";
+import { Post, Project } from "@/types";
+import { getImageUrl } from "@/lib/image";
 
 export const metadata: Metadata = {
   title: "Dylan J. Dombrowski - Web Developer & IT Consultant",
@@ -94,13 +96,17 @@ export default async function HomePage() {
               Recent work and case studies
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {featuredProjects.map((project: any) => (
+              {featuredProjects.map((project: Project) => (
                 <ProjectCard
                   key={project._id}
                   title={project.title}
                   description={project.description}
-                  slug={project.slug}
-                  imageUrl={project.mainImage}
+                  slug={
+                    typeof project.slug === "string"
+                      ? project.slug
+                      : project.slug.current
+                  }
+                  imageUrl={getImageUrl(project.mainImage)}
                   client={project.client}
                   technologies={project.technologies}
                 />
@@ -129,13 +135,13 @@ export default async function HomePage() {
               Thoughts on technology, development, and business
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {recentPosts.map((post: any) => (
+              {recentPosts.map((post: Post) => (
                 <PostCard
                   key={post._id}
                   title={post.title}
-                  excerpt={post.excerpt}
-                  slug={post.slug}
-                  mainImage={post.mainImage}
+                  excerpt={post.excerpt ?? ""}
+                  slug={post.slug.current}
+                  mainImage={post.mainImage ?? null}
                   publishedAt={post.publishedAt}
                   categories={post.categories}
                 />
@@ -161,7 +167,7 @@ export default async function HomePage() {
               Ready to Start Your Project?
             </h2>
             <p className="text-lg mb-8">
-              Let's discuss how I can help bring your vision to life.
+              Let&apos;s discuss how I can help bring your vision to life.
             </p>
             <Link
               href="/contact"

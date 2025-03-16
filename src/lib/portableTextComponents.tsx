@@ -1,9 +1,10 @@
-// src/lib/portableTextComponents.tsx
+// src/lib/portableTextComponents.tsx - UPDATED
 import Image from "next/image";
 import Link from "next/link";
 import { urlForImage } from "./image";
+import { PortableTextComponents } from "@portabletext/react";
 
-// Define types for the portable text components
+// Define more specific types for portableText
 interface PortableTextImageValue {
   asset?: {
     _ref?: string;
@@ -17,9 +18,9 @@ interface PortableTextLinkValue {
   [key: string]: unknown;
 }
 
-export const portableTextComponents = {
+export const portableTextComponents: PortableTextComponents = {
   types: {
-    image: ({ value }: { value: PortableTextImageValue }) => {
+    image: ({ value }: { value: any }) => {
       if (!value?.asset?._ref) {
         return null;
       }
@@ -51,8 +52,9 @@ export const portableTextComponents = {
       value,
     }: {
       children: React.ReactNode;
-      value: PortableTextLinkValue;
+      value?: PortableTextLinkValue;
     }) => {
+      if (!value?.href) return <>{children}</>;
       const rel = !value.href.startsWith("/")
         ? "noreferrer noopener"
         : undefined;
