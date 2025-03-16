@@ -1,6 +1,5 @@
 // src/types/index.ts
 import { TypedObject } from "@portabletext/types";
-import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 // Base Sanity document type
 export interface SanityDocument {

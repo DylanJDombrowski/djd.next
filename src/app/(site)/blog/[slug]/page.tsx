@@ -8,9 +8,8 @@ import Image from "next/image";
 import { portableTextComponents } from "@/lib/portableTextComponents";
 import { formatDate } from "@/lib/utils";
 import NewsletterForm from "@/components/forms/newsletter-form";
-import { PortableText as PortableTextType, getSlugString } from "@/types";
+import { PortableText as PortableTextType } from "@/types";
 import Link from "next/link";
-import { getImageUrl } from "@/lib/image";
 
 // Define type for post data
 interface BlogPost {

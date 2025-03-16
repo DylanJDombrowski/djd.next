@@ -5,7 +5,6 @@ import PostCard from "@/components/blog/post-card";
 import { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { getSlugString } from "@/types";
 
 interface SeriesPost {
   _id: string;

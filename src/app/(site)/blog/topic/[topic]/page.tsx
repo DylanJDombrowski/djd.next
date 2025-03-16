@@ -2,7 +2,6 @@
 import { sanityFetch } from "@/lib/sanity";
 import PostCard from "@/components/blog/post-card";
 import { Metadata } from "next";
-import { getSlugString } from "@/types";
 
 interface PostData {
   _id: string;
