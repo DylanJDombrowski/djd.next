@@ -2,6 +2,17 @@
 import { sanityFetch } from "@/lib/sanity";
 import PostCard from "@/components/blog/post-card";
 import { Metadata } from "next";
+import { getSlugString } from "@/types";
+
+interface PostData {
+  _id: string;
+  title: string;
+  slug: string;
+  excerpt?: string;
+  mainImage?: string;
+  publishedAt: string;
+  categories?: string[];
+}
 
 interface Props {
   params: { topic: string };
@@ -40,7 +51,7 @@ export default async function TopicPage({ params }: Props) {
     }
   `;
 
-  const posts = await sanityFetch<any[]>({
+  const posts = await sanityFetch<PostData[]>({
     query,
     params: { topic: topicName },
   });

@@ -5,6 +5,16 @@ import PostCard from "@/components/blog/post-card";
 import { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import { getSlugString } from "@/types";
+
+interface SeriesPost {
+  _id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  mainImage?: string;
+  publishedAt: string;
+}
 
 interface Series {
   _id: string;
@@ -13,14 +23,7 @@ interface Series {
   description: string;
   mainImage?: string;
   status: "inProgress" | "completed" | "planned";
-  posts: {
-    _id: string;
-    title: string;
-    slug: string;
-    excerpt: string;
-    mainImage?: any;
-    publishedAt: string;
-  }[];
+  posts: SeriesPost[];
 }
 
 // Generate static paths

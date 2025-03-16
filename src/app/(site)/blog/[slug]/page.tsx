@@ -8,14 +8,17 @@ import Image from "next/image";
 import { portableTextComponents } from "@/lib/portableTextComponents";
 import { formatDate } from "@/lib/utils";
 import NewsletterForm from "@/components/forms/newsletter-form";
+import { PortableText as PortableTextType, getSlugString } from "@/types";
+import Link from "next/link";
+import { getImageUrl } from "@/lib/image";
 
 // Define type for post data
-interface Post {
+interface BlogPost {
   excerpt: string;
   _id: string;
   title: string;
   slug: string;
-  body: any;
+  body: PortableTextType;
   mainImage?: string;
   publishedAt: string;
   categories?: string[];
@@ -37,9 +40,9 @@ export async function generateStaticParams() {
 }
 
 // This function gets post data - defined separately to avoid params issues
-async function getPost(slugParam: string): Promise<Post | null> {
+async function getPost(slugParam: string): Promise<BlogPost | null> {
   try {
-    return await sanityFetch<Post>({
+    return await sanityFetch<BlogPost>({
       query: postQuery,
       params: { slug: slugParam },
     });
@@ -147,20 +150,20 @@ export default async function BlogPostPage({
                   This post is part of the series:
                 </p>
                 <h3 className="text-xl font-bold mb-4">
-                  <a
+                  <Link
                     href={`/series/${post.series.slug}`}
                     className="text-navy hover:text-orange"
                   >
                     {post.series.title}
-                  </a>
+                  </Link>
                 </h3>
 
-                <a
+                <Link
                   href={`/series/${post.series.slug}`}
                   className="text-orange hover:underline"
                 >
                   View all posts in this series →
-                </a>
+                </Link>
               </div>
             )}
 
@@ -193,12 +196,12 @@ export default async function BlogPostPage({
                   Full Stack Developer & IT Professional with experience in
                   React, Angular, and AWS.
                 </p>
-                <a
+                <Link
                   href="/about"
                   className="text-sm text-orange hover:underline"
                 >
                   Learn more about me →
-                </a>
+                </Link>
               </div>
             </div>
           </div>

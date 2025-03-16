@@ -6,6 +6,9 @@ import SeriesCard from "@/components/blog/series-card";
 import { Metadata } from "next";
 import NewsletterForm from "@/components/forms/newsletter-form";
 import Link from "next/link";
+import Image from "next/image";
+import { Post, Series, getSlugString } from "@/types";
+import { getImageUrl } from "@/lib/image";
 
 export const metadata: Metadata = {
   title: "Blog | Dylan J. Dombrowski",
@@ -13,12 +16,17 @@ export const metadata: Metadata = {
     "Web development insights, philosophy, personal growth, and more.",
 };
 
+interface ContentData {
+  posts: Post[];
+  series: Series[];
+}
+
 // Function to fetch all posts
-async function getAllContent() {
+async function getAllContent(): Promise<ContentData> {
   // Fetch posts and series in parallel
   const [posts, allSeries] = await Promise.all([
-    sanityFetch<any[]>({ query: postsQuery }),
-    sanityFetch<any[]>({ query: seriesQuery }),
+    sanityFetch<Post[]>({ query: postsQuery }),
+    sanityFetch<Series[]>({ query: seriesQuery }),
   ]);
 
   console.log(`Fetched ${posts.length} posts and ${allSeries.length} series`);
@@ -54,24 +62,26 @@ export default async function BlogPage() {
 
           {/* Content navigation tabs */}
           <div className="flex mb-12 border-b border-gray-200">
-            <a
+            <Link
               href="#all-content"
               className="px-6 py-3 text-lg font-medium border-b-2 border-orange -mb-px"
             >
               All Content
-            </a>
-            <a
+            </Link>
+
+            <Link
               href="#series"
               className="px-6 py-3 text-lg font-medium text-gray-600 hover:text-navy"
             >
               Series
-            </a>
-            <a
+            </Link>
+
+            <Link
               href="#topics"
               className="px-6 py-3 text-lg font-medium text-gray-600 hover:text-navy"
             >
               Topics
-            </a>
+            </Link>
           </div>
 
           {/* Featured post */}
@@ -83,17 +93,19 @@ export default async function BlogPage() {
                   <div className="md:w-1/2">
                     {featuredPost.mainImage && (
                       <div className="h-64 md:h-full relative">
-                        <img
-                          src={featuredPost.mainImage}
+                        <Image
+                          src={getImageUrl(featuredPost.mainImage)!}
                           alt={featuredPost.title}
-                          className="w-full h-full object-cover"
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, 50vw"
                         />
                       </div>
                     )}
                   </div>
                   <div className="md:w-1/2 p-6 md:p-8">
                     <div className="flex flex-wrap gap-2 mb-3">
-                      {featuredPost.categories?.map((category: any) => (
+                      {featuredPost.categories?.map((category: string) => (
                         <span
                           key={category}
                           className="text-xs px-2 py-1 rounded-full bg-navy/10 text-navy"
@@ -116,12 +128,12 @@ export default async function BlogPage() {
                       )}
                     </p>
                     <p className="mb-4">{featuredPost.excerpt}</p>
-                    <a
-                      href={`/blog/${featuredPost.slug}`}
+                    <Link
+                      href={`/blog/${getSlugString(featuredPost.slug)}`}
                       className="text-orange hover:underline font-medium"
                     >
                       Read Full Post →
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -144,8 +156,8 @@ export default async function BlogPage() {
                     key={item._id}
                     title={item.title}
                     description={item.description}
-                    slug={item.slug}
-                    mainImage={item.mainImage}
+                    slug={getSlugString(item.slug)}
+                    mainImage={getImageUrl(item.mainImage) || undefined}
                     postCount={item.postCount}
                     status={item.status}
                   />
@@ -250,7 +262,7 @@ export default async function BlogPage() {
                     key={post._id}
                     title={post.title}
                     excerpt={post.excerpt || ""}
-                    slug={post.slug}
+                    slug={getSlugString(post.slug)}
                     mainImage={post.mainImage}
                     publishedAt={post.publishedAt}
                     categories={post.categories}
@@ -280,13 +292,13 @@ function TopicCard({
   count: number;
 }) {
   return (
-    <a
+    <Link
       href={`/blog/topic/${title.toLowerCase().replace(/\s+/g, "-")}`}
       className="bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition flex flex-col items-center text-center"
     >
       <span className="text-3xl mb-2">{icon}</span>
       <h3 className="font-medium mb-1">{title}</h3>
       <span className="text-sm text-gray-500">{count} posts</span>
-    </a>
+    </Link>
   );
 }

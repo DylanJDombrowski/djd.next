@@ -3,6 +3,7 @@ import { sanityFetch } from "@/lib/sanity";
 import { projectsQuery } from "@/lib/queries";
 import ProjectCard from "@/components/projects/project-card";
 import { Metadata } from "next";
+import { Project } from "@/types";
 
 export const metadata: Metadata = {
   title: "Projects | Dylan J. Dombrowski",
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 async function getProps() {
-  return sanityFetch<any>({ query: projectsQuery });
+  return sanityFetch<Project[]>({ query: projectsQuery });
 }
 
 export default async function ProjectsPage() {
@@ -29,13 +30,17 @@ export default async function ProjectsPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {projects.map((project: any) => (
+          {projects.map((project: Project) => (
             <ProjectCard
               key={project._id}
               title={project.title}
               description={project.description}
-              slug={project.slug}
-              imageUrl={project.mainImage}
+              slug={
+                typeof project.slug === "string"
+                  ? project.slug
+                  : project.slug.current
+              }
+              imageUrl={project.mainImage as string}
               client={project.client}
               date={project.projectDate}
               technologies={project.technologies}

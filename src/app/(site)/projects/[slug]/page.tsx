@@ -10,6 +10,18 @@ import { portableTextComponents } from "@/lib/portableTextComponents";
 import { formatDate } from "@/lib/utils";
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import Link from "next/link";
+import { PortableText as PortableTextType } from "@/types";
+
+// Define custom image interface that doesn't extend SanityImageSource
+interface ProjectImage {
+  asset?: {
+    _ref: string;
+    _type?: "reference";
+  };
+  caption?: string;
+  alt?: string;
+  _key?: string;
+}
 
 // Define type for project data
 interface Project {
@@ -17,9 +29,9 @@ interface Project {
   title: string;
   slug: { current: string };
   description: string;
-  body: any;
+  body: PortableTextType;
   mainImage?: SanityImageSource;
-  projectImages?: SanityImageSource[];
+  projectImages?: ProjectImage[];
   client?: string;
   projectDate?: string;
   technologies?: string[];
@@ -43,8 +55,6 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
-  // Instead of directly accessing params.slug, we need to await the params
-  // This is the approach recommended by Next.js
   const resolvedParams = await Promise.resolve(params);
   const slug = resolvedParams.slug;
 
@@ -69,11 +79,16 @@ export async function generateMetadata({
   }
 }
 
-async function getProject(slug: string): Promise<Project> {
-  return sanityFetch<Project>({
-    query: projectQuery,
-    params: { slug },
-  });
+async function getProject(slug: string): Promise<Project | null> {
+  try {
+    return await sanityFetch<Project>({
+      query: projectQuery,
+      params: { slug },
+    });
+  } catch (error) {
+    console.error("Error fetching project:", error);
+    return null;
+  }
 }
 
 export default async function ProjectPage({
@@ -81,7 +96,6 @@ export default async function ProjectPage({
 }: {
   params: { slug: string };
 }) {
-  // Also await params here
   const resolvedParams = await Promise.resolve(params);
   const slug = resolvedParams.slug;
 
@@ -96,7 +110,6 @@ export default async function ProjectPage({
     const mainImageUrl = project.mainImage
       ? urlForImage(project.mainImage).url()
       : undefined;
-
     return (
       <div className="py-16 md:py-24">
         <div className="container mx-auto px-4">
@@ -173,7 +186,7 @@ export default async function ProjectPage({
             <div className="prose prose-lg max-w-none mb-12">
               <PortableText
                 value={project.body}
-                components={portableTextComponents as any}
+                components={portableTextComponents}
               />
             </div>
 
@@ -183,7 +196,9 @@ export default async function ProjectPage({
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {project.projectImages.map((image, index) => {
-                    const imageUrl = urlForImage(image).url();
+                    const imageUrl = urlForImage(
+                      image as SanityImageSource
+                    ).url();
                     return imageUrl ? (
                       <div key={index} className="rounded-lg overflow-hidden">
                         <Image
@@ -194,10 +209,9 @@ export default async function ProjectPage({
                           className="w-full h-auto"
                         />
 
-                        {/* Cast to any to access potential caption property */}
-                        {(image as any).caption && (
+                        {image.caption && (
                           <div className="p-4 text-sm text-navy/70">
-                            {(image as any).caption}
+                            {image.caption}
                           </div>
                         )}
                       </div>

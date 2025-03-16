@@ -6,7 +6,7 @@ import ProjectCard from "@/components/projects/project-card";
 import PostCard from "@/components/blog/post-card";
 import { Metadata } from "next";
 import Link from "next/link";
-import { Post, Project } from "@/types";
+import { Post, Project, Service, HomeContent, getSlugString } from "@/types";
 import { getImageUrl } from "@/lib/image";
 
 export const metadata: Metadata = {
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 };
 
 async function getHomeContent() {
-  return sanityFetch<any>({ query: featuredContentQuery });
+  return sanityFetch<HomeContent>({ query: featuredContentQuery });
 }
 
 export default async function HomePage() {
@@ -64,12 +64,13 @@ export default async function HomePage() {
               business needs
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {featuredServices.map((service: any) => (
+              {featuredServices.map((service: Service) => (
                 <ServiceCard
                   key={service._id}
                   title={service.title}
                   description={service.shortDescription}
-                  slug={service.slug}
+                  slug={getSlugString(service.slug)}
+                  icon={service.icon}
                 />
               ))}
             </div>
@@ -101,11 +102,7 @@ export default async function HomePage() {
                   key={project._id}
                   title={project.title}
                   description={project.description}
-                  slug={
-                    typeof project.slug === "string"
-                      ? project.slug
-                      : project.slug.current
-                  }
+                  slug={getSlugString(project.slug)}
                   imageUrl={getImageUrl(project.mainImage)}
                   client={project.client}
                   technologies={project.technologies}
@@ -140,7 +137,7 @@ export default async function HomePage() {
                   key={post._id}
                   title={post.title}
                   excerpt={post.excerpt ?? ""}
-                  slug={post.slug.current}
+                  slug={getSlugString(post.slug)}
                   mainImage={post.mainImage ?? null}
                   publishedAt={post.publishedAt}
                   categories={post.categories}

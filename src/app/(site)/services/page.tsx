@@ -3,7 +3,7 @@ import { sanityFetch } from "@/lib/sanity";
 import { servicesQuery } from "@/lib/queries";
 import ServiceCard from "@/components/services/service-card";
 import { Metadata } from "next";
-import { Service } from "@/types";
+import { Service, getSlugString } from "@/types";
 
 export const metadata: Metadata = {
   title: "Services | Dylan J. Dombrowski",
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 async function getServices() {
-  return sanityFetch<any[]>({ query: servicesQuery });
+  return sanityFetch<Service[]>({ query: servicesQuery });
 }
 
 export default async function ServicesPage() {
@@ -30,12 +30,12 @@ export default async function ServicesPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {services.map((service: Service) => (
+          {services.map((service) => (
             <ServiceCard
               key={service._id}
               title={service.title}
               description={service.shortDescription}
-              slug={service.slug.current}
+              slug={getSlugString(service.slug)}
               icon={service.icon}
             />
           ))}

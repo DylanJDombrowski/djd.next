@@ -1,5 +1,6 @@
 // src/types/index.ts
 import { TypedObject } from "@portabletext/types";
+import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 // Base Sanity document type
 export interface SanityDocument {
@@ -14,6 +15,21 @@ export interface SanityDocument {
 export interface SanitySlug {
   current: string;
   _type?: "slug";
+}
+
+// Type guard for SanitySlug
+export function isSanitySlug(
+  slug: SanitySlug | { current: string } | string
+): slug is SanitySlug {
+  return typeof slug !== "string" && "_type" in slug;
+}
+
+// Helper to get slug string regardless of type
+export function getSlugString(
+  slug: SanitySlug | { current: string } | string
+): string {
+  if (typeof slug === "string") return slug;
+  return slug.current;
 }
 
 // Image type
@@ -34,9 +50,9 @@ export type PortableText = TypedObject | TypedObject[];
 // Post type
 export interface Post extends SanityDocument {
   title: string;
-  slug: SanitySlug | { current: string };
+  slug: string | SanitySlug | { current: string };
   excerpt?: string;
-  mainImage?: SanityImage | string;
+  mainImage?: string | SanityImage | null;
   body: PortableText;
   publishedAt: string;
   categories?: string[];
@@ -44,18 +60,30 @@ export interface Post extends SanityDocument {
   series?: {
     _id: string;
     title: string;
-    slug: SanitySlug | { current: string };
+    slug: string | SanitySlug | { current: string };
   };
+}
+
+// Project image type for gallery
+export interface ProjectImage {
+  asset?: {
+    _ref: string;
+    _type?: "reference";
+  };
+  caption?: string;
+  alt?: string;
+  _key?: string;
+  url?: string;
 }
 
 // Project type
 export interface Project extends SanityDocument {
   title: string;
-  slug: SanitySlug | { current: string };
+  slug: string | SanitySlug | { current: string };
   description: string;
   body: PortableText;
-  mainImage?: SanityImage | string;
-  projectImages?: SanityImage[];
+  mainImage?: string | SanityImage | null;
+  projectImages?: ProjectImage[];
   client?: string;
   projectDate?: string;
   technologies?: string[];
@@ -68,20 +96,20 @@ export interface Project extends SanityDocument {
 export interface RelatedProject {
   _id: string;
   title: string;
-  slug: SanitySlug | { current: string };
+  slug: string | SanitySlug | { current: string };
   description: string;
-  mainImage?: SanityImage | string;
+  mainImage?: string | SanityImage | null;
 }
 
 // Service type
 export interface Service extends SanityDocument {
   title: string;
-  slug: SanitySlug | { current: string };
+  slug: string | SanitySlug | { current: string };
   shortDescription: string;
   body: PortableText;
   features?: string[];
-  mainImage?: SanityImage | string;
-  icon?: SanityImage | string | null;
+  mainImage?: string | SanityImage | null;
+  icon?: string | SanityImage | null;
   ctaText?: string;
   order?: number;
   featured?: boolean;
@@ -91,9 +119,9 @@ export interface Service extends SanityDocument {
 // Series type
 export interface Series extends SanityDocument {
   title: string;
-  slug: SanitySlug | { current: string };
+  slug: string | SanitySlug | { current: string };
   description: string;
-  mainImage?: SanityImage | string;
+  mainImage?: string | SanityImage | null;
   status: "inProgress" | "completed" | "planned";
   posts: Post[];
   postCount: number;
@@ -112,7 +140,7 @@ export interface PostCardProps {
 export interface ServiceCardProps {
   title: string;
   description: string;
-  slug: string | SanitySlug | { current: string };
+  slug: string;
   icon?: string | SanityImage | null;
 }
 
@@ -131,7 +159,7 @@ export interface SeriesCardProps {
   title: string;
   description: string;
   slug: string;
-  mainImage?: SanityImage | string | null;
+  mainImage?: string | SanityImage | null;
   postCount: number;
   status: "inProgress" | "completed" | "planned";
 }
@@ -155,4 +183,11 @@ export interface ApiResponse<T> {
   message?: string;
   data?: T;
   error?: string;
+}
+
+// Homepage content structure
+export interface HomeContent {
+  featuredServices: Service[];
+  featuredProjects: Project[];
+  recentPosts: Post[];
 }
