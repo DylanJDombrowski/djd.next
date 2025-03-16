@@ -18,7 +18,7 @@ export async function GET(request: Request) {
 
   try {
     // Update the user's status in the database
-    const { error, data } = await supabaseAdmin
+    const { error } = await supabaseAdmin
       .from("newsletter_subscriptions")
       .update({
         status: "unsubscribed",

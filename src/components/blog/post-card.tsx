@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { formatDate } from "@/lib/utils";
-import { PostCardProps, SanityImage } from "@/types";
+import { PostCardProps } from "@/types";
 import { getImageUrl } from "@/lib/image";
 
 export default function PostCard({

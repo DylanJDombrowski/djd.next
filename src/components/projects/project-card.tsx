@@ -1,24 +1,19 @@
 // src/components/projects/project-card.tsx
 import Link from "next/link";
 import Image from "next/image";
-import { getImageUrl } from "@/lib/image";
-import { ProjectCardProps, SanityImage } from "@/types";
+import { formatDate } from "@/lib/utils";
+import { ProjectCardProps } from "@/types";
 
 export default function ProjectCard({
   title,
   description,
   slug,
   imageUrl,
-  mainImage, // For compatibility
   client,
   date,
   technologies,
   isDark = false,
 }: ProjectCardProps) {
-  // Handle both imageUrl and mainImage props
-  const displayImageUrl =
-    imageUrl || (mainImage ? getImageUrl(mainImage) : null);
-
   return (
     <div
       className={`rounded-lg overflow-hidden border ${
@@ -27,12 +22,14 @@ export default function ProjectCard({
           : "bg-white border-gray/10 text-navy"
       }`}
     >
-      {displayImageUrl ? (
+      {imageUrl ? (
         <div className="relative h-48 md:h-64">
-          <img
-            src={displayImageUrl}
+          <Image
+            src={imageUrl}
             alt={title}
-            className="w-full h-full object-cover"
+            fill
+            className="object-cover"
+            priority={false}
           />
         </div>
       ) : (
@@ -75,7 +72,7 @@ export default function ProjectCard({
           <div
             className={`text-sm mb-4 ${isDark ? "text-beige/70" : "text-navy/70"}`}
           >
-            {date}
+            {formatDate(date)}
           </div>
         )}
 

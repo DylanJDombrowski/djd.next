@@ -22,6 +22,7 @@ export interface SanityImage {
   asset: {
     _ref: string;
     _type?: "reference";
+    url?: string;
   };
   alt?: string;
   caption?: string;
@@ -35,10 +36,11 @@ export interface Post extends SanityDocument {
   title: string;
   slug: SanitySlug | { current: string };
   excerpt?: string;
-  mainImage?: SanityImage;
+  mainImage?: SanityImage | string;
   body: PortableText;
   publishedAt: string;
   categories?: string[];
+  featured?: boolean;
   series?: {
     _id: string;
     title: string;
@@ -52,13 +54,14 @@ export interface Project extends SanityDocument {
   slug: SanitySlug | { current: string };
   description: string;
   body: PortableText;
-  mainImage?: SanityImage;
+  mainImage?: SanityImage | string;
   projectImages?: SanityImage[];
   client?: string;
   projectDate?: string;
   technologies?: string[];
   projectUrl?: string;
   githubUrl?: string;
+  featured?: boolean;
 }
 
 // Related project type (simplified)
@@ -67,7 +70,7 @@ export interface RelatedProject {
   title: string;
   slug: SanitySlug | { current: string };
   description: string;
-  mainImage?: SanityImage;
+  mainImage?: SanityImage | string;
 }
 
 // Service type
@@ -77,9 +80,11 @@ export interface Service extends SanityDocument {
   shortDescription: string;
   body: PortableText;
   features?: string[];
-  mainImage?: SanityImage;
-  icon?: SanityImage | null;
+  mainImage?: SanityImage | string;
+  icon?: SanityImage | string | null;
   ctaText?: string;
+  order?: number;
+  featured?: boolean;
   relatedProjects?: RelatedProject[];
 }
 
@@ -88,7 +93,7 @@ export interface Series extends SanityDocument {
   title: string;
   slug: SanitySlug | { current: string };
   description: string;
-  mainImage?: SanityImage;
+  mainImage?: SanityImage | string;
   status: "inProgress" | "completed" | "planned";
   posts: Post[];
   postCount: number;
@@ -116,7 +121,6 @@ export interface ProjectCardProps {
   description: string;
   slug: string;
   imageUrl?: string | null;
-  mainImage?: SanityImage | null; // For compatibility
   client?: string;
   date?: string;
   technologies?: string[];
@@ -130,4 +134,25 @@ export interface SeriesCardProps {
   mainImage?: SanityImage | string | null;
   postCount: number;
   status: "inProgress" | "completed" | "planned";
+}
+
+// Newsletter form props
+export interface NewsletterFormProps {
+  darkMode?: boolean;
+}
+
+// Contact form data type
+export interface ContactFormData {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
+
+// API response types
+export interface ApiResponse<T> {
+  success: boolean;
+  message?: string;
+  data?: T;
+  error?: string;
 }

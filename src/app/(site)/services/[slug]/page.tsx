@@ -8,7 +8,8 @@ import Image from "next/image";
 import ProjectCard from "@/components/projects/project-card";
 import { getImageUrl } from "@/lib/image";
 import { portableTextComponents } from "@/lib/portableTextComponents";
-import { RelatedProject, Service } from "@/types";
+import { Service } from "@/types";
+import Link from "next/link";
 
 // Generate static paths
 export async function generateStaticParams() {
@@ -156,12 +157,12 @@ export default async function ServicePage({
                 {service.title.toLowerCase()} needs.
               </p>
 
-              <link
+              <Link
                 href="/contact"
                 className="inline-block bg-orange hover:bg-orange/90 text-white font-bold py-3 px-6 rounded-md transition"
               >
                 {service.ctaText || "Get in Touch"}
-              </link>
+              </Link>
             </div>
           </div>
         </div>

@@ -1,26 +1,27 @@
-// src/lib/portableTextComponents.tsx - UPDATED
+// src/lib/portableTextComponents.tsx
 import Image from "next/image";
 import Link from "next/link";
 import { urlForImage } from "./image";
 import { PortableTextComponents } from "@portabletext/react";
-
-// Define more specific types for portableText
-interface PortableTextImageValue {
-  asset?: {
-    _ref?: string;
-  };
-  alt?: string;
-  caption?: string;
-}
 
 interface PortableTextLinkValue {
   href: string;
   [key: string]: unknown;
 }
 
+interface PortableTextImageObject {
+  asset: {
+    _ref: string;
+    [key: string]: unknown;
+  };
+  alt?: string;
+  caption?: string;
+  [key: string]: unknown;
+}
+
 export const portableTextComponents: PortableTextComponents = {
   types: {
-    image: ({ value }: { value: any }) => {
+    image: ({ value }: { value: PortableTextImageObject }) => {
       if (!value?.asset?._ref) {
         return null;
       }

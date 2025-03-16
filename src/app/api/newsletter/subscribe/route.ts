@@ -1,16 +1,12 @@
 // src/app/api/newsletter/subscribe/route.ts
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
-import { Resend } from "resend";
 
 // Initialize Supabase client with service role key for admin operations
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
-
-// Initialize Resend
-const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
   try {
@@ -25,7 +21,7 @@ export async function POST(request: Request) {
     }
 
     // Check if email already exists
-    const { data: existingSubscriber, error: checkError } = await supabaseAdmin
+    const { data: existingSubscriber } = await supabaseAdmin
       .from("newsletter_subscriptions")
       .select("id, status")
       .eq("email", email)
