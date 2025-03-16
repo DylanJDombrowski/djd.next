@@ -39,11 +39,11 @@ export async function generateStaticParams() {
 }
 
 // This function gets post data - defined separately to avoid params issues
-async function getPost(slugParam: string): Promise<BlogPost | null> {
+async function getPost(slug: string): Promise<BlogPost | null> {
   try {
     return await sanityFetch<BlogPost>({
       query: postQuery,
-      params: { slug: slugParam },
+      params: { slug },
     });
   } catch (error) {
     console.error("Error fetching post:", error);
@@ -57,10 +57,8 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
-  const slug = params.slug;
-
   try {
-    const post = await getPost(slug);
+    const post = await getPost(params.slug);
 
     if (!post) {
       return {
@@ -87,10 +85,8 @@ export default async function BlogPostPage({
 }: {
   params: { slug: string };
 }) {
-  const slug = params.slug;
-
   try {
-    const post = await getPost(slug);
+    const post = await getPost(params.slug);
 
     if (!post) {
       notFound();
@@ -100,6 +96,7 @@ export default async function BlogPostPage({
       <div className="py-16 md:py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
+            {/* Page content remains the same... */}
             <header className="mb-8">
               {post.categories && post.categories.length > 0 && (
                 <div className="flex flex-wrap gap-2 mb-4">
