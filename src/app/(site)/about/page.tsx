@@ -196,7 +196,7 @@ export default function AboutPage() {
           <div className="mb-12">
             <h2 className="text-2xl font-semibold mb-4">Beyond the Code</h2>
             <p className="text-lg mb-6">
-              When I'm not building web applications, you'll find me:
+              When I&apos;m not building web applications, you&apos;ll find me:
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -214,9 +214,9 @@ export default function AboutPage() {
                 <h3 className="font-semibold text-xl mb-3">Staying Active</h3>
                 <p>
                   Physical fitness is an important part of maintaining mental
-                  clarity. Whether it's running, hiking, or strength training, I
-                  find that regular exercise improves my problem-solving
-                  abilities and creativity.
+                  clarity. Whether it&apos;s running, hiking, or strength
+                  training, I find that regular exercise improves my
+                  problem-solving abilities and creativity.
                 </p>
               </div>
 
@@ -225,7 +225,7 @@ export default function AboutPage() {
                   Continuous Learning
                 </h3>
                 <p>
-                  The tech landscape is always evolving, and I'm passionate
+                  The tech landscape is always evolving, and I&apos;m passionate
                   about staying current. I regularly explore new frameworks,
                   languages, and methodologies to expand my skillset and bring
                   fresh perspectives to my work.
@@ -237,12 +237,12 @@ export default function AboutPage() {
           {/* Call to action */}
           <div className="text-center bg-navy text-white p-8 rounded-lg">
             <h2 className="text-2xl font-semibold mb-4">
-              Let's Create Something Great Together
+              Let&apos;s Create Something Great Together
             </h2>
             <p className="text-lg mb-6">
-              Whether you're looking to build a new web application, enhance an
-              existing site, or need technical consultation, I'm ready to help
-              bring your vision to life.
+              Whether you&apos;re looking to build a new web application,
+              enhance an existing site, or need technical consultation, I&apos;m
+              ready to help bring your vision to life.
             </p>
 
             <a

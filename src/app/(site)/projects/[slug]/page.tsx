@@ -8,6 +8,8 @@ import Image from "next/image";
 import { urlForImage } from "@/lib/image";
 import { portableTextComponents } from "@/lib/portableTextComponents";
 import { formatDate } from "@/lib/utils";
+import { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import Link from "next/link";
 
 // Define type for project data
 interface Project {
@@ -16,8 +18,8 @@ interface Project {
   slug: { current: string };
   description: string;
   body: any;
-  mainImage?: any;
-  projectImages?: any[];
+  mainImage?: SanityImageSource;
+  projectImages?: SanityImageSource[];
   client?: string;
   projectDate?: string;
   technologies?: string[];
@@ -89,6 +91,12 @@ export default async function ProjectPage({
     if (!project) {
       notFound();
     }
+
+    // Get the main image URL
+    const mainImageUrl = project.mainImage
+      ? urlForImage(project.mainImage).url()
+      : undefined;
+
     return (
       <div className="py-16 md:py-24">
         <div className="container mx-auto px-4">
@@ -127,33 +135,33 @@ export default async function ProjectPage({
 
               <div className="flex flex-wrap gap-4 mt-8">
                 {project.projectUrl && (
-                  <a
+                  <Link
                     href={project.projectUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-block bg-orange hover:bg-orange/90 text-white font-bold py-3 px-6 rounded-md transition"
                   >
                     View Live Project
-                  </a>
+                  </Link>
                 )}
 
                 {project.githubUrl && (
-                  <a
+                  <Link
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-block bg-transparent hover:bg-navy/10 text-navy font-bold py-3 px-6 rounded-md border border-navy transition"
                   >
                     View on GitHub
-                  </a>
+                  </Link>
                 )}
               </div>
             </div>
 
-            {project.mainImage && (
+            {mainImageUrl && (
               <div className="mb-12 rounded-lg overflow-hidden">
                 <Image
-                  src={urlForImage(project.mainImage).url()}
+                  src={mainImageUrl}
                   alt={project.title}
                   width={1200}
                   height={675}
@@ -165,7 +173,7 @@ export default async function ProjectPage({
             <div className="prose prose-lg max-w-none mb-12">
               <PortableText
                 value={project.body}
-                components={portableTextComponents}
+                components={portableTextComponents as any}
               />
             </div>
 
@@ -174,23 +182,27 @@ export default async function ProjectPage({
                 <h2 className="text-2xl font-semibold mb-8">Project Gallery</h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {project.projectImages.map((image, index) => (
-                    <div key={index} className="rounded-lg overflow-hidden">
-                      <Image
-                        src={urlForImage(image).url()}
-                        alt={`${project.title} image ${index + 1}`}
-                        width={600}
-                        height={400}
-                        className="w-full h-auto"
-                      />
+                  {project.projectImages.map((image, index) => {
+                    const imageUrl = urlForImage(image).url();
+                    return imageUrl ? (
+                      <div key={index} className="rounded-lg overflow-hidden">
+                        <Image
+                          src={imageUrl}
+                          alt={`${project.title} image ${index + 1}`}
+                          width={600}
+                          height={400}
+                          className="w-full h-auto"
+                        />
 
-                      {image.caption && (
-                        <div className="p-4 text-sm text-navy/70">
-                          {image.caption}
-                        </div>
-                      )}
-                    </div>
-                  ))}
+                        {/* Cast to any to access potential caption property */}
+                        {(image as any).caption && (
+                          <div className="p-4 text-sm text-navy/70">
+                            {(image as any).caption}
+                          </div>
+                        )}
+                      </div>
+                    ) : null;
+                  })}
                 </div>
               </div>
             )}
@@ -200,16 +212,16 @@ export default async function ProjectPage({
                 Interested in a Similar Project?
               </h2>
               <p className="mb-6">
-                Let's discuss how I can help you build something similar for
-                your business.
+                Let&apos;s discuss how I can help you build something similar
+                for your business.
               </p>
 
-              <a
+              <Link
                 href="/contact"
                 className="inline-block bg-orange hover:bg-orange/90 text-white font-bold py-3 px-6 rounded-md transition"
               >
                 Get in Touch
-              </a>
+              </Link>
             </div>
           </div>
         </div>

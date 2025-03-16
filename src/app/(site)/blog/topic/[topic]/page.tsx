@@ -2,7 +2,6 @@
 import { sanityFetch } from "@/lib/sanity";
 import PostCard from "@/components/blog/post-card";
 import { Metadata } from "next";
-import { notFound } from "next/navigation";
 
 interface Props {
   params: { topic: string };

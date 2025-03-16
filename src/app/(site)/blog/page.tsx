@@ -5,7 +5,6 @@ import PostCard from "@/components/blog/post-card";
 import SeriesCard from "@/components/blog/series-card";
 import { Metadata } from "next";
 import NewsletterForm from "@/components/forms/newsletter-form";
-import { useState } from "react";
 import Link from "next/link";
 
 export const metadata: Metadata = {

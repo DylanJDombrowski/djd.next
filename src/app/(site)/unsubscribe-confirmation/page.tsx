@@ -58,8 +58,8 @@ export default function UnsubscribeConfirmationPage({
           </p>
 
           <p className="text-gray-600 mb-8">
-            We're sorry to see you go. If you'd like to share any feedback about
-            why you unsubscribed, feel free to contact us.
+            We&apos;re sorry to see you go. If you&apos;d like to share any
+            feedback about why you unsubscribed, feel free to contact us.
           </p>
 
           <div className="space-y-4">

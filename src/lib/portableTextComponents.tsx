@@ -24,10 +24,15 @@ export const portableTextComponents = {
         return null;
       }
 
+      const imageUrl = urlForImage(value).url();
+      if (!imageUrl) {
+        return null;
+      }
+
       return (
         <div className="my-8 rounded-lg overflow-hidden">
           <Image
-            src={urlForImage(value).url() || ""}
+            src={imageUrl}
             alt={value.alt || ""}
             width={800}
             height={450}

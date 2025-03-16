@@ -1,12 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import { urlForImage } from "@/lib/image";
+import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 interface ProjectCardProps {
   title: string;
   description: string;
   slug: string;
-  imageUrl?: any;
+  imageUrl?: SanityImageSource;
   client?: string;
   date?: string;
   technologies?: string[];
@@ -35,15 +36,13 @@ export default function ProjectCard({
       }`}
     >
       {imageUrlString ? (
-        <div className="relative h-48 md:h-64">
-          <Image
-            src={imageUrlString}
-            alt={title}
-            fill
-            sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-cover"
-          />
-        </div>
+        <Image
+          src={imageUrlString}
+          alt={title}
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className="object-cover"
+        />
       ) : (
         <div
           className={`h-48 md:h-64 ${isDark ? "bg-gray/20" : "bg-gray/10"}`}

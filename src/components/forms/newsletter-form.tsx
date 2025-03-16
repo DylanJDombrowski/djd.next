@@ -1,7 +1,6 @@
 // src/components/forms/newsletter-form.tsx
 "use client";
 import { useState } from "react";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 export default function NewsletterForm() {
   const [email, setEmail] = useState("");

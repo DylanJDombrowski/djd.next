@@ -130,7 +130,8 @@ export default function ContactForm() {
 
         {status === "success" && (
           <p className="mt-4 text-green-600">
-            Your message has been sent successfully. I'll get back to you soon!
+            Your message has been sent successfully. I&apos;ll get back to you
+            soon!
           </p>
         )}
 

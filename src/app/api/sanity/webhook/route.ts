@@ -37,7 +37,7 @@ export async function POST(request: Request) {
   try {
     // Parse the webhook payload
     const payload = await request.json();
-    const { _id: documentId, _type, sendNewsletter, slug } = payload;
+    const { _id: documentId, _type, sendNewsletter } = payload;
 
     // Only process posts that have sendNewsletter set to true
     if (_type !== "post" || !sendNewsletter) {

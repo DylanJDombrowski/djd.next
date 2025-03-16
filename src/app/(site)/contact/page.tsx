@@ -19,7 +19,8 @@ export default function ContactPage() {
             </h1>
             <p className="text-lg text-navy/80">
               Have a project in mind or want to discuss how we can work
-              together? Fill out the form below, and I'll get back to you soon.
+              together? Fill out the form below, and I&apos;ll get back to you
+              soon.
             </p>
           </div>
 

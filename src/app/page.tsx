@@ -5,6 +5,7 @@ import ServiceCard from "@/components/services/service-card";
 import ProjectCard from "@/components/projects/project-card";
 import PostCard from "@/components/blog/post-card";
 import { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Dylan J. Dombrowski - Web Developer & IT Consultant",
@@ -34,18 +35,18 @@ export default async function HomePage() {
               solve complex technical challenges.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <a
+              <Link
                 href="/services"
                 className="bg-orange hover:bg-orange/90 text-white font-bold py-3 px-6 rounded-md transition"
               >
                 Explore Services
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/contact"
                 className="bg-transparent hover:bg-white/10 text-white font-bold py-3 px-6 rounded-md border border-white transition"
               >
                 Get in Touch
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -71,12 +72,12 @@ export default async function HomePage() {
               ))}
             </div>
             <div className="text-center mt-12">
-              <a
+              <Link
                 href="/services"
                 className="inline-block text-orange hover:text-orange/80 font-medium"
               >
                 View all services →
-              </a>
+              </Link>
             </div>
           </div>
         </section>
@@ -106,12 +107,12 @@ export default async function HomePage() {
               ))}
             </div>
             <div className="text-center mt-12">
-              <a
+              <Link
                 href="/projects"
                 className="inline-block text-orange hover:text-orange/80 font-medium"
               >
                 View all projects →
-              </a>
+              </Link>
             </div>
           </div>
         </section>
@@ -141,12 +142,12 @@ export default async function HomePage() {
               ))}
             </div>
             <div className="text-center mt-12">
-              <a
+              <Link
                 href="/blog"
                 className="inline-block text-orange hover:text-orange/80 font-medium"
               >
                 View all posts →
-              </a>
+              </Link>
             </div>
           </div>
         </section>
@@ -162,12 +163,12 @@ export default async function HomePage() {
             <p className="text-lg mb-8">
               Let's discuss how I can help bring your vision to life.
             </p>
-            <a
+            <Link
               href="/contact"
               className="inline-block bg-orange hover:bg-orange/90 text-white font-bold py-3 px-6 rounded-md transition"
             >
               Get in Touch
-            </a>
+            </Link>
           </div>
         </div>
       </section>

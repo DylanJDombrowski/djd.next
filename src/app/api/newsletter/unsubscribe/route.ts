@@ -1,7 +1,6 @@
 // src/app/api/newsletter/unsubscribe/route.ts
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
-import { redirect } from "next/navigation";
 
 // Initialize Supabase admin client for direct database access
 const supabaseAdmin = createClient(
