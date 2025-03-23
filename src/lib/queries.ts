@@ -73,8 +73,8 @@ export const postsQuery = `
     excerpt,
     "mainImage": mainImage.asset->url,
     publishedAt,
-    featured,
-    "categories": categories[]->title
+    "categories": categories[]->title,
+    featured
   }
 `;
 
@@ -84,46 +84,42 @@ export const postQuery = `
     title,
     "slug": slug.current,
     body,
+    "mainImage": mainImage.asset->url,
+    publishedAt,
+    "categories": categories[]->title
+  }
+`;
+export const categoriesQuery = `
+  *[_type == "category"] {
+    _id,
+    title,
+    "slug": slug.current,
+    description
+  }
+`;
+// Posts by category query
+export const postsByCategoryQuery = `
+  *[_type == "post" && $category in categories[]->title] | order(publishedAt desc) {
+    _id,
+    title,
+    "slug": slug.current,
     excerpt,
     "mainImage": mainImage.asset->url,
     publishedAt,
     "categories": categories[]->title,
-    "series": series-> {
-      _id,
-      title,
-      "slug": slug.current
-    }
+    featured
   }
 `;
 
-export const seriesQuery = `
-  *[_type == "series"] | order(title asc) {
+export const relatedPostsQuery = `
+  *[_type == "post" && slug.current != $slug && count((categories[]->title)[@ in $categories]) > 0] | order(publishedAt desc)[0...3] {
     _id,
     title,
     "slug": slug.current,
-    description,
+    excerpt,
     "mainImage": mainImage.asset->url,
-    status,
-    "postCount": count(*[_type == "post" && references(^._id)])
-  }
-`;
-
-export const singleSeriesQuery = `
-  *[_type == "series" && slug.current == $slug][0] {
-    _id,
-    title,
-    "slug": slug.current,
-    description,
-    "mainImage": mainImage.asset->url,
-    status,
-    "posts": *[_type == "post" && references(^._id)] | order(publishedAt desc) {
-      _id,
-      title,
-      "slug": slug.current,
-      excerpt,
-      publishedAt,
-      "mainImage": mainImage.asset->url
-    }
+    publishedAt,
+    "categories": categories[]->title
   }
 `;
 

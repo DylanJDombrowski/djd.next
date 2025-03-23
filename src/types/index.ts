@@ -56,11 +56,13 @@ export interface Post extends SanityDocument {
   publishedAt: string;
   categories?: string[];
   featured?: boolean;
-  series?: {
-    _id: string;
-    title: string;
-    slug: string | SanitySlug | { current: string };
-  };
+}
+
+export interface Category {
+  _id: string;
+  title: string;
+  slug: string;
+  description?: string;
 }
 
 // Project image type for gallery
@@ -115,17 +117,6 @@ export interface Service extends SanityDocument {
   relatedProjects?: RelatedProject[];
 }
 
-// Series type
-export interface Series extends SanityDocument {
-  title: string;
-  slug: string | SanitySlug | { current: string };
-  description: string;
-  mainImage?: string | SanityImage | null;
-  status: "inProgress" | "completed" | "planned";
-  posts: Post[];
-  postCount: number;
-}
-
 // Component Props
 export interface PostCardProps {
   title: string;
@@ -152,15 +143,6 @@ export interface ProjectCardProps {
   date?: string;
   technologies?: string[];
   isDark?: boolean;
-}
-
-export interface SeriesCardProps {
-  title: string;
-  description: string;
-  slug: string;
-  mainImage?: string | SanityImage | null;
-  postCount: number;
-  status: "inProgress" | "completed" | "planned";
 }
 
 // Newsletter form props
