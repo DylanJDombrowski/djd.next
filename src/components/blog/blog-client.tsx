@@ -21,8 +21,6 @@ export default function BlogPageClient({
 }: BlogPageProps) {
   // Client-side state for category filtering
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  // State for showing all categories in sidebar
-  const [showAllCategories, setShowAllCategories] = useState(false);
 
   // Filter posts based on selected category with null check
   const filteredPosts = selectedCategory
