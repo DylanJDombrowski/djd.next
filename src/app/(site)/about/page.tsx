@@ -35,9 +35,9 @@ export default function AboutPage() {
                 />
               </svg>
             </div>
-            <div className="rounded-xl overflow-hidden shadow-lg border-4 border-white transform rotate-2 hover:rotate-0 transition-all z-10 relative">
+            <div className="rounded-xl overflow-hidden shadow-lg border-4 border-white transition-all z-10 relative">
               <Image
-                src="/images/about.jpg"
+                src="/images/DylanDombrowskiProfessional.jpg"
                 alt="Dylan J. Dombrowski"
                 width={400}
                 height={600}
