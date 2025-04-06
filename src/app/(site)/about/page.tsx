@@ -13,7 +13,7 @@ import {
 } from "react-icons/fa";
 
 export const metadata: Metadata = {
-  title: "About Dylan J. Dombrowski | Web Developer & IT Consultant",
+  title: "About Dylan | Web Developer & IT Consultant",
   description:
     "Learn about Dylan Dombrowski, a full-stack developer with a unique journey from pizza kitchens to web development, specializing in modern JavaScript frameworks and complex problem-solving.",
 };
@@ -47,7 +47,7 @@ export default function AboutPage() {
           </div>
           <div className="md:w-2/3">
             <h1 className="text-4xl md:text-5xl font-bold mb-4 text-navy">
-              About Me
+              About Dylan
             </h1>
             <div className="h-1 w-20 bg-orange mb-6"></div>
             <h2 className="text-2xl font-semibold mb-4">
