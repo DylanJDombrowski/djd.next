@@ -69,7 +69,7 @@ export default function FloatingCTA() {
             href="/contact"
             className="bg-orange hover:bg-orange/90 text-white font-bold py-2 px-4 rounded-md text-center"
           >
-            Let's work together
+            Let&apos;s work together
           </Link>
           <button onClick={handleDismiss} className="text-navy/70 py-2">
             No thanks

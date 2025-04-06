@@ -1,6 +1,7 @@
 // src/components/forms/contact-form.tsx
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 
 export default function ContactForm() {
@@ -28,11 +29,17 @@ export default function ContactForm() {
     setStatus("loading");
 
     try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10-second timeout
+
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
+        signal: controller.signal,
       });
+
+      clearTimeout(timeoutId);
 
       const data = await response.json();
 
@@ -55,6 +62,17 @@ export default function ContactForm() {
       console.error("Error submitting form:", error);
     }
   };
+
+  // Simple email validation
+  const isEmailValid = (email: string) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
+
+  const isFormValid =
+    formData.name.trim() !== "" &&
+    formData.email.trim() !== "" &&
+    isEmailValid(formData.email) &&
+    formData.message.trim() !== "";
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
@@ -85,8 +103,17 @@ export default function ContactForm() {
             required
             value={formData.email}
             onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange"
+            className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-orange ${
+              formData.email && !isEmailValid(formData.email)
+                ? "border-red-500"
+                : "border-gray-300"
+            }`}
           />
+          {formData.email && !isEmailValid(formData.email) && (
+            <p className="text-red-500 text-xs mt-1">
+              Please enter a valid email address
+            </p>
+          )}
         </div>
       </div>
 
@@ -122,7 +149,7 @@ export default function ContactForm() {
       <div>
         <button
           type="submit"
-          disabled={status === "loading"}
+          disabled={status === "loading" || !isFormValid}
           className="w-full md:w-auto bg-orange hover:bg-orange/90 text-white font-bold py-3 px-6 rounded-md transition disabled:opacity-50"
         >
           {status === "loading" ? "Sending..." : "Send Message"}
@@ -136,10 +163,22 @@ export default function ContactForm() {
         )}
 
         {status === "error" && (
-          <p className="mt-4 text-red-600">
-            {errorMessage ||
-              "There was an error sending your message. Please try again."}
-          </p>
+          <div className="mt-4">
+            <p className="text-red-600">
+              {errorMessage ||
+                "There was an error sending your message. Please try again."}
+            </p>
+            <Link
+              href={`mailto:contact@dylanjdombrowski.com?subject=${encodeURIComponent(
+                formData.subject || "Website Contact"
+              )}&body=${encodeURIComponent(
+                `Name: ${formData.name}\n\n${formData.message}`
+              )}`}
+              className="text-orange hover:underline mt-2 inline-block"
+            >
+              Or email me directly →
+            </Link>
+          </div>
         )}
       </div>
     </form>

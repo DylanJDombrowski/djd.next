@@ -2,12 +2,10 @@
 import { sanityFetch } from "@/lib/sanity";
 import { featuredContentQuery } from "@/lib/queries";
 import ServiceCard from "@/components/services/service-card";
-import ProjectCard from "@/components/projects/project-card";
 import PostCard from "@/components/blog/post-card";
 import { Metadata } from "next";
 import Link from "next/link";
-import { Post, Project, Service, HomeContent, getSlugString } from "@/types";
-import { getImageUrl } from "@/lib/image";
+import { Post, Service, HomeContent, getSlugString } from "@/types";
 import ScrollIndicator from "@/components/home/scroll-indicator";
 import ScrollAnimation from "@/components/home/scroll-animation";
 import FloatingCTA from "@/components/mobile/floating-cta";
@@ -23,8 +21,7 @@ async function getHomeContent() {
 }
 
 export default async function HomePage() {
-  const { featuredServices, featuredProjects, recentPosts } =
-    await getHomeContent();
+  const { featuredServices, recentPosts } = await getHomeContent();
 
   return (
     <main>
@@ -384,8 +381,8 @@ export default async function HomePage() {
               Client Testimonials
             </h2>
             <p className="text-lg text-navy/80">
-              Don't just take my word for it. Here's what clients have to say
-              about working with me.
+              Don&apos;t just take my word for it. Here&apos;s what clients have
+              to say about working with me.
             </p>
           </div>
 
@@ -402,9 +399,9 @@ export default async function HomePage() {
                 </svg>
               </div>
               <p className="text-navy/80 mb-4">
-                "Dylan delivered our project ahead of schedule and exceeded our
-                expectations. His technical expertise and ability to understand
-                our business needs made all the difference."
+                &quot;Dylan delivered our project ahead of schedule and exceeded
+                our expectations. His technical expertise and ability to
+                understand our business needs made all the difference.&quot;
               </p>
               <div className="font-medium">
                 <p className="text-navy">Jane Smith</p>
@@ -424,9 +421,9 @@ export default async function HomePage() {
                 </svg>
               </div>
               <p className="text-navy/80 mb-4">
-                "Working with Dylan was seamless. He understood our requirements
-                quickly and delivered a solution that has significantly improved
-                our business operations."
+                &quot;Working with Dylan was seamless. He understood our
+                requirements quickly and delivered a solution that has
+                significantly improved our business operations.&quot;
               </p>
               <div className="font-medium">
                 <p className="text-navy">John Doe</p>
