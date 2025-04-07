@@ -96,7 +96,7 @@ export default function ContactPage() {
               <h3 className="text-xl font-semibold mb-2">Social Media</h3>
               <div className="flex justify-center space-x-4">
                 <a
-                  href="https://linkedin.com/in/yourprofile"
+                  href="https://www.linkedin.com/in/dylandombrowski/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-navy/80 hover:text-orange"
@@ -112,7 +112,7 @@ export default function ContactPage() {
                   </svg>
                 </a>
                 <a
-                  href="https://github.com/youruser"
+                  href="https://github.com/DylanJDombrowski"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-navy/80 hover:text-orange"
@@ -128,7 +128,7 @@ export default function ContactPage() {
                   </svg>
                 </a>
                 <a
-                  href="https://twitter.com/yourhandle"
+                  href="https://x.com/dylandombro"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-navy/80 hover:text-orange"

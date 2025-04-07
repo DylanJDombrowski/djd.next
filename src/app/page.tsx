@@ -172,42 +172,6 @@ export default async function HomePage() {
               </Link>
             </div>
           </div>
-          <div className="flex justify-center space-x-8 mb-8">
-            <div className="flex items-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="text-orange mr-2"
-              >
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-              </svg>
-              <span className="text-navy/80">5-star rated</span>
-            </div>
-            <div className="flex items-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="text-orange mr-2"
-              >
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              <span className="text-navy/80">100% on time delivery</span>
-            </div>
-          </div>
         </section>
       )}
 
@@ -276,8 +240,8 @@ export default async function HomePage() {
                   Modern Technology
                 </h3>
                 <p className="text-navy/70">
-                  I use the latest technologies to build fast, reliable, and
-                  scalable solutions.
+                  I use the latest (but reliable) technologies to build fast,
+                  reliable, and scalable solutions.
                 </p>
               </div>
 
@@ -399,39 +363,30 @@ export default async function HomePage() {
                 </svg>
               </div>
               <p className="text-navy/80 mb-4">
-                &quot;Dylan delivered our project ahead of schedule and exceeded
-                our expectations. His technical expertise and ability to
-                understand our business needs made all the difference.&quot;
+                &quot;Dylan delivered our website with exceptional skill and
+                insight. He attentively listened to our needs, provided prompt
+                solutions with creative additions, and helped us structure our
+                data effectively. His work has helped us build a robust
+                following and share information efficiently. He's always
+                diligent with responses and a pleasure to work with.&quot;
               </p>
               <div className="font-medium">
-                <p className="text-navy">Jane Smith</p>
-                <p className="text-navy/60 text-sm">CEO, Example Company</p>
+                <p className="text-navy">Rodney Coffey</p>
+                <p className="text-navy/60 text-sm">
+                  Business Development Director
+                </p>
+                <a
+                  href="https://www.linkedin.com/in/dylanjdombrowski/details/recommendations/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-orange hover:underline text-sm mt-1 inline-block"
+                >
+                  View on LinkedIn →
+                </a>
               </div>
             </div>
 
-            {/* Testimonial 2 */}
-            <div className="bg-white p-8 rounded-lg shadow-md">
-              <div className="flex items-center mb-4">
-                <svg
-                  className="w-6 h-6 text-orange"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                </svg>
-              </div>
-              <p className="text-navy/80 mb-4">
-                &quot;Working with Dylan was seamless. He understood our
-                requirements quickly and delivered a solution that has
-                significantly improved our business operations.&quot;
-              </p>
-              <div className="font-medium">
-                <p className="text-navy">John Doe</p>
-                <p className="text-navy/60 text-sm">
-                  Marketing Director, Another Company
-                </p>
-              </div>
-            </div>
+            {/* You can add more testimonials here as you collect them */}
           </div>
         </div>
       </section>
