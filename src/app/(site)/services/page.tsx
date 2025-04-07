@@ -19,21 +19,7 @@ async function getServices() {
 
 export default async function ServicesPage() {
   const services = await getServices();
-
-  // Group services by category for organized display
-  // You can modify this based on your actual data structure
   const featuredServices = services.filter((service) => service.featured);
-  const developmentServices = services.filter(
-    (service) =>
-      service.title.toLowerCase().includes("develop") ||
-      service.title.toLowerCase().includes("web") ||
-      service.title.toLowerCase().includes("app")
-  );
-  const consultingServices = services.filter(
-    (service) =>
-      service.title.toLowerCase().includes("consult") ||
-      service.title.toLowerCase().includes("strategy")
-  );
 
   return (
     <div>
@@ -80,7 +66,7 @@ export default async function ServicesPage() {
                 <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-navy/10 rounded-lg"></div>
                 <div className="relative z-10 rounded-lg overflow-hidden shadow-lg">
                   <Image
-                    src="/images/services-approach.jpg" // You'll need this image
+                    src="/images/services-approach.jpg"
                     alt="My approach to services"
                     width={600}
                     height={400}
@@ -229,10 +215,10 @@ export default async function ServicesPage() {
           <div className="max-w-4xl mx-auto relative">
             {/* Decorative elements */}
             <div className="absolute -top-10 -left-10 text-6xl text-orange opacity-20">
-              "
+              &quot;
             </div>
             <div className="absolute -bottom-10 -right-10 text-6xl text-orange opacity-20">
-              "
+              &quot;
             </div>
 
             {/* Main testimonial card */}
@@ -253,14 +239,17 @@ export default async function ServicesPage() {
 
                 {/* Testimonial content */}
                 <div className="md:w-3/4">
-                  <div className="text-orange text-5xl font-serif mb-6">"</div>
+                  <div className="text-orange text-5xl font-serif mb-6">
+                    &quot;
+                  </div>
                   <p className="text-xl italic leading-relaxed mb-6">
                     Dylan delivered our website with exceptional skill and
                     insight. He attentively listened to our needs, provided
                     prompt solutions with creative additions, and helped us
                     structure our data effectively. His work has helped us build
-                    a robust following and share information efficiently. He's
-                    always diligent with responses and a pleasure to work with.
+                    a robust following and share information efficiently.
+                    He&apos;s always diligent with responses and a pleasure to
+                    work with.
                   </p>
                   <div className="flex items-center">
                     <div className="flex">
@@ -416,9 +405,9 @@ export default async function ServicesPage() {
                     4. Support & Optimization
                   </h3>
                   <p className="text-navy/80">
-                    My commitment doesn't end at delivery. I provide ongoing
-                    support and continuous improvement to ensure long-term
-                    success.
+                    My commitment doesn&apos;t end at delivery. I provide
+                    ongoing support and continuous improvement to ensure
+                    long-term success.
                   </p>
                 </div>
                 <div className="md:w-1/2 relative">
@@ -459,8 +448,8 @@ export default async function ServicesPage() {
               Ready to Get Started?
             </h2>
             <p className="text-lg mb-8">
-              Let's discuss how I can help you achieve your business goals with
-              tailored solutions that deliver real results.
+              Let&apos;s discuss how I can help you achieve your business goals
+              with tailored solutions that deliver real results.
             </p>
             <Link
               href="/contact"
