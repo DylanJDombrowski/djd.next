@@ -367,7 +367,7 @@ export default async function HomePage() {
                 insight. He attentively listened to our needs, provided prompt
                 solutions with creative additions, and helped us structure our
                 data effectively. His work has helped us build a robust
-                following and share information efficiently. He's always
+                following and share information efficiently. He&apos;s always
                 diligent with responses and a pleasure to work with.&quot;
               </p>
               <div className="font-medium">
