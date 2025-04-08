@@ -24,7 +24,18 @@ interface SanityPost {
 
 // Webhook secret validation
 const validateWebhook = (req: Request): boolean => {
+  // Log all headers for debugging
+  const headersObj = Object.fromEntries(req.headers.entries());
+  console.log("All headers:", JSON.stringify(headersObj));
+
   const secret = req.headers.get("x-sanity-webhook-secret");
+  // Check if secret exists at all
+  if (!secret) {
+    console.log("Warning: No secret header found!");
+    // Check if it exists under a different name
+    console.log("Available headers:", Object.keys(headersObj));
+  }
+
   return secret === process.env.SANITY_WEBHOOK_SECRET;
 };
 
