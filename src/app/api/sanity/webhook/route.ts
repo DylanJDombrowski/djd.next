@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { Resend } from "resend";
 import { sanityFetch } from "@/lib/sanity";
+import crypto from "crypto";
 
 // Initialize clients
 const supabaseAdmin = createClient(
@@ -22,36 +23,74 @@ interface SanityPost {
   categories?: string[];
 }
 
-// Webhook secret validation
-const validateWebhook = (req: Request): boolean => {
-  // Log all headers for debugging
-  const headersObj = Object.fromEntries(req.headers.entries());
-  console.log("All headers:", JSON.stringify(headersObj));
+// Manual signature validation function
+function validateSignature(
+  signature: string,
+  body: string,
+  secret: string
+): boolean {
+  try {
+    // Parse the signature header
+    const [timestamp, signatureHash] = signature.split(",");
+    const timestampValue = timestamp.split("=")[1];
+    const hashValue = signatureHash.split("=")[1];
 
-  const secret = req.headers.get("x-sanity-webhook-secret");
-  // Check if secret exists at all
-  if (!secret) {
-    console.log("Warning: No secret header found!");
-    // Check if it exists under a different name
-    console.log("Available headers:", Object.keys(headersObj));
+    // Create the message that was signed
+    const message = `${timestampValue}.${body}`;
+
+    // Create the HMAC hash
+    const hmac = crypto.createHmac("sha256", secret);
+    hmac.update(message);
+    const computedHash = hmac.digest("hex");
+
+    // Compare the computed hash with the provided hash
+    return computedHash === hashValue;
+  } catch (error) {
+    console.error("Error validating signature:", error);
+    return false;
   }
-
-  return secret === process.env.SANITY_WEBHOOK_SECRET;
-};
+}
 
 export async function POST(request: Request) {
-  // Validate webhook
-  if (!validateWebhook(request)) {
+  console.log("Webhook received at:", new Date().toISOString());
+
+  // Read the request body as text for signature verification
+  const bodyText = await request.text();
+
+  // Get the signature from headers
+  const signature = request.headers.get("sanity-webhook-signature");
+
+  // Check if signature exists
+  if (!signature) {
+    console.log("No webhook signature found in headers");
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
   }
 
+  // Verify the signature manually
+  const isValid = validateSignature(
+    signature,
+    bodyText,
+    process.env.SANITY_WEBHOOK_SECRET || ""
+  );
+
+  if (!isValid) {
+    console.log("Invalid webhook signature");
+    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  }
+
+  console.log("Webhook signature validated successfully");
+
   try {
     // Parse the webhook payload
-    const payload = await request.json();
+    const payload = JSON.parse(bodyText);
+    console.log("Webhook payload received:", JSON.stringify(payload));
+
     const { _id: documentId, _type, sendNewsletter } = payload;
+    console.log(`Document type: ${_type}, sendNewsletter: ${sendNewsletter}`);
 
     // Only process posts that have sendNewsletter set to true
     if (_type !== "post" || !sendNewsletter) {
+      console.log("Not a newsletter post, skipping");
       return NextResponse.json(
         { message: "Not a newsletter post" },
         { status: 200 }
@@ -59,6 +98,7 @@ export async function POST(request: Request) {
     }
 
     // Fetch full post details from Sanity
+    console.log("Fetching post details from Sanity for document:", documentId);
     const postQuery = `
       *[_type == "post" && _id == $documentId][0] {
         title,
@@ -76,10 +116,14 @@ export async function POST(request: Request) {
     });
 
     if (!post) {
+      console.log("Post not found in Sanity");
       return NextResponse.json({ message: "Post not found" }, { status: 404 });
     }
 
+    console.log("Post details retrieved:", post.title);
+
     // Get active subscribers
+    console.log("Fetching active subscribers from Supabase");
     const { data: subscribers, error } = await supabaseAdmin
       .from("newsletter_subscriptions")
       .select("email")
@@ -94,28 +138,38 @@ export async function POST(request: Request) {
     }
 
     if (!subscribers || subscribers.length === 0) {
+      console.log("No active subscribers found");
       return NextResponse.json(
         { message: "No active subscribers" },
         { status: 200 }
       );
     }
 
+    console.log(`Found ${subscribers.length} active subscribers`);
+
     // Prepare post URL
     const baseUrl =
       process.env.NEXT_PUBLIC_BASE_URL || "https://dylanjdombrowski.com";
     const postUrl = `${baseUrl}/blog/${post.slug}`;
+
+    console.log("Post URL:", postUrl);
 
     // Send emails in batches (to avoid rate limits)
     const batchSize = 20;
     let successCount = 0;
     let errorCount = 0;
 
+    console.log(`Sending emails in batches of ${batchSize}`);
     for (let i = 0; i < subscribers.length; i += batchSize) {
       const batch = subscribers.slice(i, i + batchSize);
+      console.log(
+        `Processing batch ${i / batchSize + 1} with ${batch.length} subscribers`
+      );
 
       // Process each subscriber in the batch
       const emailPromises = batch.map(async (subscriber) => {
         try {
+          console.log(`Sending email to ${subscriber.email}`);
           await resend.emails.send({
             from: "Dylan <dylan@dylanjdombrowski.com>",
             to: subscriber.email,
@@ -167,11 +221,14 @@ export async function POST(request: Request) {
 
       // Wait for the batch to complete
       await Promise.all(emailPromises);
+      console.log(
+        `Batch ${i / batchSize + 1} completed: ${successCount} sent, ${errorCount} failed`
+      );
     }
 
-    // Update the document in Sanity to mark newsletter as sent
-    // This prevents sending duplicate newsletters
-    // Ideally, you'd use Sanity client here to update the document
+    console.log(
+      `Newsletter sending completed. Total: ${subscribers.length}, Success: ${successCount}, Failed: ${errorCount}`
+    );
 
     return NextResponse.json({
       message: "Newsletter sent",
