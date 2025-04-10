@@ -54,25 +54,34 @@ export default function ScrollIndicator() {
   return (
     <div className="fixed right-6 top-1/2 transform -translate-y-1/2 z-50 hidden lg:block">
       <div className="relative flex flex-col items-center">
-        {/* Vertical line connecting the dots */}
-        <div className="absolute inset-0 w-0.5 bg-gray-300"></div>
+        {/* Vertical line connecting the dots - make it clearly visible */}
+        <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gray-300 z-0"></div>
 
         {/* Navigation dots */}
-        <div className="flex flex-col items-center space-y-8 py-2">
+        <div className="flex flex-col items-center space-y-8 py-2 relative z-10">
           {navigationSections.map((section) => (
             <Link
               key={section.id}
               href={`#${section.id}`}
-              className="z-10"
+              className="z-10 group relative flex items-center justify-center w-6 h-6"
               aria-label={`Navigate to ${section.label} section`}
             >
+              {/* Larger hit area */}
+              <div className="absolute inset-0 rounded-full hover:bg-gray-200/20"></div>
+
+              {/* Visible dot with border */}
               <div
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                className={`w-3 h-3 rounded-full transition-all duration-300 border-2 ${
                   activeSection === section.id
-                    ? "bg-orange scale-110"
-                    : "bg-gray-400 hover:bg-gray-600"
+                    ? "bg-orange border-orange scale-110"
+                    : "bg-white border-gray-400 hover:border-gray-600"
                 }`}
               ></div>
+
+              {/* Tooltip with section name */}
+              <span className="absolute right-8 transform bg-navy text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
+                {section.label}
+              </span>
             </Link>
           ))}
         </div>

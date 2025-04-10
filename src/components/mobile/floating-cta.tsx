@@ -6,34 +6,55 @@ import Link from "next/link";
 
 export default function FloatingCTA() {
   const [isVisible, setIsVisible] = useState(false);
+  const [hasDismissed, setHasDismissed] = useState(false);
 
   useEffect(() => {
-    // Check if the user has previously dismissed the CTA
-    const hasDismissed = localStorage.getItem("ctaDismissed") === "true";
+    // First, check if localStorage is available (we're on the client side)
+    if (typeof window !== "undefined") {
+      try {
+        // Check if the user has previously dismissed the CTA
+        const dismissed = localStorage.getItem("ctaDismissed") === "true";
+        setHasDismissed(dismissed);
 
-    if (hasDismissed) return;
+        // If already dismissed, don't add scroll listener
+        if (dismissed) return;
 
-    const handleScroll = () => {
-      // Show after scrolling 60% of the first viewport height
-      const scrollThreshold = window.innerHeight * 0.6;
+        const handleScroll = () => {
+          // Show after scrolling 60% of the first viewport height
+          const scrollThreshold = window.innerHeight * 0.6;
 
-      if (window.scrollY > scrollThreshold) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
+          if (window.scrollY > scrollThreshold) {
+            setIsVisible(true);
+          } else {
+            setIsVisible(false);
+          }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        // Check initial scroll position
+        handleScroll();
+
+        return () => window.removeEventListener("scroll", handleScroll);
+      } catch (error) {
+        // Handle any localStorage errors
+        console.error("LocalStorage error:", error);
       }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    }
   }, []);
 
   const handleDismiss = () => {
     setIsVisible(false);
-    localStorage.setItem("ctaDismissed", "true");
+    setHasDismissed(true);
+
+    try {
+      localStorage.setItem("ctaDismissed", "true");
+    } catch (error) {
+      console.error("Error saving to localStorage:", error);
+    }
   };
 
-  if (!isVisible) return null;
+  // If the CTA has been dismissed or isn't yet visible, don't render anything
+  if (hasDismissed || !isVisible) return null;
 
   return (
     <div className="fixed bottom-4 inset-x-4 z-50 lg:hidden">
