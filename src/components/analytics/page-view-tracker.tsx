@@ -4,6 +4,18 @@
 import { useEffect } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 
+// Define types for the gtag function
+declare global {
+  interface Window {
+    dataLayer: unknown[];
+    gtag: (
+      command: string,
+      targetId: string,
+      configOrEventParams?: Record<string, unknown>
+    ) => void;
+  }
+}
+
 export default function PageViewTracker() {
   const pathname = usePathname();
   const searchParams = useSearchParams();

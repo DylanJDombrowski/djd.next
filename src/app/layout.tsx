@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import Script from "next/script";
+import { Suspense } from "react";
 import PageViewTracker from "@/components/analytics/page-view-tracker";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -51,7 +52,9 @@ export default function RootLayout({
                 `,
               }}
             />
-            <PageViewTracker />
+            <Suspense fallback={null}>
+              <PageViewTracker />
+            </Suspense>
           </>
         )}
       </body>
