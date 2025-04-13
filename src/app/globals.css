@@ -50,3 +50,83 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Global blog content styling */
+.prose {
+  color: #374151;
+  max-width: 65ch;
+  margin: 0 auto;
+}
+
+.prose > * + * {
+  margin-top: 1.5em;
+}
+
+/* Add smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Improve readability on mobile */
+@media (max-width: 640px) {
+  .prose {
+    font-size: 1rem;
+  }
+  
+  .prose h1 {
+    font-size: 1.875rem;
+  }
+  
+  .prose h2 {
+    font-size: 1.5rem;
+  }
+  
+  .prose h3 {
+    font-size: 1.25rem;
+  }
+}
+
+/* Additional blog styles - add these to your globals.css */
+
+/* Proper max-width for the content container */
+.container {
+  max-width: 1200px;
+}
+
+/* Enhanced prose settings */
+.prose {
+  max-width: 100%; /* Override the 65ch max-width */
+  color: #374151;
+}
+
+.prose img {
+  border-radius: 0.5rem;
+  margin: 2rem 0;
+}
+
+/* Improved mobile spacing */
+@media (max-width: 768px) {
+  .prose {
+    font-size: 1rem;
+  }
+  
+  .prose h1 {
+    font-size: 1.75rem;
+  }
+  
+  .prose h2 {
+    font-size: 1.5rem;
+  }
+  
+  .prose img {
+    margin: 1.5rem 0;
+  }
+}
+
+/* Sticky sidebar implementation */
+@media (min-width: 768px) {
+  .sticky-sidebar {
+    position: sticky;
+    top: 2rem;
+  }
+}

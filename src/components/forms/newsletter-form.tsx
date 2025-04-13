@@ -1,5 +1,6 @@
 // src/components/forms/newsletter-form.tsx
 "use client";
+
 import { useState } from "react";
 
 export default function NewsletterForm() {
@@ -14,7 +15,6 @@ export default function NewsletterForm() {
     setStatus("loading");
 
     try {
-      // Use the API route instead of direct Supabase insert
       const response = await fetch("/api/newsletter/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -24,15 +24,14 @@ export default function NewsletterForm() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Failed to subscribe");
+        throw new Error(data.message || "Failed to subscribe");
       }
 
-      // Handle success
       setStatus("success");
-      setMessage(data.message || "Thank you for subscribing to my newsletter!");
       setEmail("");
+      setMessage(data.message || "Successfully subscribed to the newsletter!");
 
-      // Reset success status after 5 seconds
+      // Reset success message after 5 seconds
       setTimeout(() => {
         setStatus("idle");
         setMessage("");
@@ -42,43 +41,42 @@ export default function NewsletterForm() {
       setMessage(
         error instanceof Error
           ? error.message
-          : "Failed to subscribe. Please try again."
+          : "An error occurred. Please try again."
       );
-      console.error("Newsletter error:", error);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="flex flex-col sm:flex-row gap-2">
+    <div className="w-full">
+      <form onSubmit={handleSubmit} className="flex flex-col space-y-3">
         <input
           type="email"
-          id="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Enter your email"
-          className="flex-grow px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange"
-          disabled={status === "loading"}
+          className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange focus:border-transparent"
           required
         />
         <button
           type="submit"
           disabled={status === "loading"}
-          className="sm:flex-shrink-0 bg-orange hover:bg-orange/90 text-white font-bold py-2 px-6 rounded-md transition disabled:opacity-50"
+          className="w-full px-4 py-2 bg-orange text-white rounded-md hover:bg-orange-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {status === "loading" ? "Subscribing..." : "Subscribe"}
         </button>
-      </div>
 
-      {message && (
-        <p
-          className={`text-sm ${
-            status === "success" ? "text-green-600" : "text-red-600"
-          }`}
-        >
-          {message}
-        </p>
-      )}
-    </form>
+        {status === "success" && (
+          <div className="mt-2 text-sm text-green-600 bg-green-50 p-2 rounded">
+            {message}
+          </div>
+        )}
+
+        {status === "error" && (
+          <div className="mt-2 text-sm text-red-600 bg-red-50 p-2 rounded">
+            {message}
+          </div>
+        )}
+      </form>
+    </div>
   );
 }
