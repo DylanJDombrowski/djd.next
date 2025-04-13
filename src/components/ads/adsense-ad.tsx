@@ -10,7 +10,7 @@ interface AdSenseAdProps {
 export default function AdSenseAd({ clientId, adSlotId }: AdSenseAdProps) {
   useEffect(() => {
     try {
-      // @ts-ignore
+      // @ts-expect-error
       (window.adsbygoogle = window.adsbygoogle || []).push({});
     } catch (error) {
       console.error("AdSense error:", error);

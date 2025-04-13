@@ -344,8 +344,8 @@ export default async function BlogPostPage({
 
                   {/* AdSense Ad */}
                   <AdSenseAd
-                    clientId="YOUR_CLIENT_ID"
-                    adSlotId="YOUR_AD_SLOT_ID"
+                    clientId="7533527074451799"
+                    adSlotId="2793935285"
                   />
                 </div>
               </aside>
