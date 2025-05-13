@@ -5,6 +5,7 @@ import Footer from "@/components/layout/footer";
 import Script from "next/script";
 import { Suspense } from "react";
 import PageViewTracker from "@/components/analytics/page-view-tracker";
+import { Analytics } from "@vercel/analytics/next";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,7 +29,10 @@ export default function RootLayout({
         className={`${inter.className} bg-beige text-navy min-h-screen flex flex-col`}
       >
         <Header />
-        <main className="flex-grow">{children}</main>
+        <main className="flex-grow">
+          {children}
+          <Analytics />
+        </main>
         <Footer />
 
         {/* Google Analytics Script */}
