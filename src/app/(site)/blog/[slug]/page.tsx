@@ -180,7 +180,7 @@ export default async function BlogPostPage({
             {/* Header section with image */}
             <div className="p-6 md:p-8">
               <div className="max-w-4xl mx-auto">
-                {/* Categories above title */}
+                {/* Categories */}
                 {post.categories && post.categories.length > 0 && (
                   <div className="flex flex-wrap gap-2 mb-4">
                     {post.categories.map((category: string) => (
@@ -198,44 +198,37 @@ export default async function BlogPostPage({
                   </div>
                 )}
 
-                {/* Title and image layout */}
-                <div className="flex flex-col md:flex-row gap-8 items-start mb-6">
-                  {/* Title and metadata */}
-                  <div className="flex-1">
-                    <h1 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight mb-4">
-                      {post.title}
-                    </h1>
+                {/* Title and metadata */}
+                <h1 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight mb-4">
+                  {post.title}
+                </h1>
 
-                    <time
-                      dateTime={post.publishedAt}
-                      className="text-navy/60 text-sm block mb-4"
-                    >
-                      {formatDate(post.publishedAt)}
-                    </time>
+                <time
+                  dateTime={post.publishedAt}
+                  className="text-navy/60 text-sm block mb-4"
+                >
+                  {formatDate(post.publishedAt)}
+                </time>
 
-                    {post.excerpt && (
-                      <p className="text-lg text-gray-600 font-serif leading-relaxed">
-                        {post.excerpt}
-                      </p>
-                    )}
+                {post.excerpt && (
+                  <p className="text-lg text-gray-600 font-serif leading-relaxed mb-6">
+                    {post.excerpt}
+                  </p>
+                )}
+
+                {/* Image positioned after text content */}
+                {post.mainImage && (
+                  <div className="relative h-64 md:h-80 rounded-lg overflow-hidden shadow-md mb-6">
+                    <Image
+                      src={getImageUrl(post.mainImage)!}
+                      alt={post.title}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 100vw"
+                      priority
+                    />
                   </div>
-
-                  {/* Main Image - Constrained size */}
-                  {post.mainImage && (
-                    <div className="w-full md:w-2/5 lg:w-1/3">
-                      <div className="relative h-64 md:h-72 lg:h-80 rounded-lg overflow-hidden shadow-md">
-                        <Image
-                          src={getImageUrl(post.mainImage)!}
-                          alt={post.title}
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 40vw, 33vw"
-                          priority
-                        />
-                      </div>
-                    </div>
-                  )}
-                </div>
+                )}
               </div>
             </div>
 
