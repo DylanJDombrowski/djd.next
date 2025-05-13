@@ -220,16 +220,16 @@ export default async function BlogPostPage({
                     )}
                   </div>
 
-                  {/* Main Image - Added to the right side */}
+                  {/* Main Image - Constrained size */}
                   {post.mainImage && (
                     <div className="w-full md:w-2/5 lg:w-1/3">
-                      <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-md">
+                      <div className="relative h-64 md:h-72 lg:h-80 rounded-lg overflow-hidden shadow-md">
                         <Image
                           src={getImageUrl(post.mainImage)!}
                           alt={post.title}
                           fill
                           className="object-cover"
-                          sizes="(max-width: 768px) 100vw, 33vw"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 40vw, 33vw"
                           priority
                         />
                       </div>
