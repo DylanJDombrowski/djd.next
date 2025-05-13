@@ -179,57 +179,75 @@ export default async function BlogPostPage({
           <article className="bg-white rounded-lg shadow-sm overflow-hidden">
             {/* Header section with image */}
             <div className="p-6 md:p-8">
-              <div className="max-w-4xl mx-auto">
-                {/* Categories */}
-                {post.categories && post.categories.length > 0 && (
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {post.categories.map((category: string) => (
-                      <Link
-                        key={category}
-                        href={`/blog/topic/${encodeURIComponent(
-                          category.toLowerCase().replace(/\s+/g, "-")
-                        )}`}
-                        className="text-sm px-3 py-1 rounded-full bg-navy/10 text-navy hover:bg-navy/20 transition flex items-center"
+              {/* Hero section with background image */}
+              {post.mainImage && (
+                <div className="relative w-full h-96 md:h-[500px] lg:h-[600px] rounded-lg overflow-hidden mb-8">
+                  {/* Background Image with proper aspect ratio handling */}
+                  <Image
+                    src={getImageUrl(post.mainImage)!}
+                    alt={post.title}
+                    fill
+                    className="object-cover object-center"
+                    sizes="(max-width: 768px) 100vw, 100vw"
+                    priority
+                  />
+
+                  {/* Gradient overlay for text readability */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+
+                  {/* Content overlay positioned at bottom */}
+                  <div className="absolute inset-0 p-6 md:p-8 lg:p-12 flex flex-col justify-between">
+                    {/* Categories at top (optional) */}
+                    {post.categories && post.categories.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mb-4 self-start">
+                        {post.categories.map((category: string) => (
+                          <Link
+                            key={category}
+                            href={`/blog/topic/${encodeURIComponent(
+                              category.toLowerCase().replace(/\s+/g, "-")
+                            )}`}
+                            className="text-sm px-3 py-1 rounded-full bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 transition-all duration-200"
+                          >
+                            <CategoryIcon category={category} size="sm" />
+                            <span className="ml-1">{category}</span>
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Main content at bottom */}
+                    <div className="text-white">
+                      <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
+                        {post.title}
+                      </h1>
+
+                      <time
+                        dateTime={post.publishedAt}
+                        className="text-white/90 text-lg block mb-4"
                       >
-                        <CategoryIcon category={category} size="sm" />
-                        <span className="ml-1">{category}</span>
-                      </Link>
-                    ))}
+                        {formatDate(post.publishedAt)}
+                      </time>
+
+                      {/* Optional: Add author info in hero */}
+                      <div className="flex items-center text-white/90">
+                        <div className="w-10 h-10 rounded-full bg-navy flex items-center justify-center text-white text-sm font-bold mr-3">
+                          DJ
+                        </div>
+                        <span>Dylan J. Dombrowski</span>
+                      </div>
+                    </div>
                   </div>
-                )}
+                </div>
+              )}
 
-                {/* Title and metadata */}
-                <h1 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight mb-4">
-                  {post.title}
-                </h1>
-
-                <time
-                  dateTime={post.publishedAt}
-                  className="text-navy/60 text-sm block mb-4"
-                >
-                  {formatDate(post.publishedAt)}
-                </time>
-
-                {post.excerpt && (
-                  <p className="text-lg text-gray-600 font-serif leading-relaxed mb-6">
+              {/* Excerpt below the hero (maintains separation from main content) */}
+              {post.excerpt && (
+                <div className="max-w-4xl mx-auto mb-8">
+                  <p className="text-xl md:text-2xl text-gray-600 font-serif leading-relaxed">
                     {post.excerpt}
                   </p>
-                )}
-
-                {/* Image positioned after text content */}
-                {post.mainImage && (
-                  <div className="relative h-64 md:h-80 rounded-lg overflow-hidden shadow-md mb-6">
-                    <Image
-                      src={getImageUrl(post.mainImage)!}
-                      alt={post.title}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 100vw"
-                      priority
-                    />
-                  </div>
-                )}
-              </div>
+                </div>
+              )}
             </div>
 
             <div className="flex flex-col md:flex-row">
