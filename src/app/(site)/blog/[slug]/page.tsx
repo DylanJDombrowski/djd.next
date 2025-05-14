@@ -13,7 +13,6 @@ import Link from "next/link";
 import CategoryIcon from "@/components/blog/category-icon";
 import { getImageUrl } from "@/lib/image";
 import ShareButtons from "@/components/blog/share-buttons";
-import AdSenseAd from "@/components/ads/adsense-ad";
 
 // Define type for post data
 interface BlogPost {
