@@ -367,10 +367,10 @@ export default async function BlogPostPage({
                   </div>
 
                   {/* AdSense Ad */}
-                  <AdSenseAd
+                  {/* <AdSenseAd
                     clientId="7533527074451799"
                     adSlotId="2793935285"
-                  />
+                  /> */}
                 </div>
               </aside>
             </div>
