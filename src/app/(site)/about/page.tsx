@@ -213,7 +213,7 @@ export default function AboutPage() {
             </div>
 
             {/* Call to action */}
-            <div className="relative overflow-hidden bg-gradient-to-r from-navy to-navy/80 text-white p-8 rounded-xl shadow-lg">
+            <div className="relative overflow-hidden bg-gradient-to-r from-navy to-navy/80 text-white p-8 rounded-xl shadow-lg bottom-8">
               <div className="absolute top-0 right-0 opacity-10">
                 <svg width="300" height="300" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
                   <g transform="translate(300,300)">
