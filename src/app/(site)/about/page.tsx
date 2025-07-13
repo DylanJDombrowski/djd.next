@@ -309,8 +309,8 @@ export default function AboutPage() {
                     Creating elegant solutions to complex problems through modern web development and strategic IT consulting.
                   </p>
                   <div className="flex flex-wrap gap-2 mb-4">
-                    <span className="bg-navy/10 text-navy px-3 py-1 rounded-full text-sm">React</span>
                     <span className="bg-navy/10 text-navy px-3 py-1 rounded-full text-sm">Next.js</span>
+                    <span className="bg-navy/10 text-navy px-3 py-1 rounded-full text-sm">Postgres</span>
                     <span className="bg-navy/10 text-navy px-3 py-1 rounded-full text-sm">Angular</span>
                     <span className="bg-navy/10 text-navy px-3 py-1 rounded-full text-sm">TypeScript</span>
                   </div>
