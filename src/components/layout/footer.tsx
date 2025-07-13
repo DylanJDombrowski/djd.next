@@ -51,12 +51,12 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/services/website-maintenance-support" className="hover:text-orange transition-colors">
-                  website-maintenance-support
+                  Website Support
                 </Link>
               </li>
               <li>
                 <Link href="/services/small-business-technology-assessment" className="hover:text-orange transition-colors">
-                  Small Business Technology Assessment
+                  SB Technology Assessment
                 </Link>
               </li>
             </ul>
