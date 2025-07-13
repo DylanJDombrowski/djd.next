@@ -80,10 +80,6 @@ export default async function ProjectPage({ params }: { params: { slug: string }
             </div>
           )}
 
-          <div className="prose prose-lg max-w-none mb-12">
-            <p>Body text, not sure how this will look at the end.</p>
-          </div>
-
           <div className="mt-12 p-8 bg-beige rounded-lg">
             <h2 className="text-2xl font-semibold mb-4">Interested in a Similar Project?</h2>
             <p className="mb-6">Let&apos;s discuss how I can help you build something similar for your business.</p>
