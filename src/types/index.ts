@@ -1,4 +1,3 @@
-// src/types/index.ts
 import { ReactNode } from "react";
 
 // Project type
@@ -18,8 +17,10 @@ export interface Project {
 export interface Service {
   _id: string;
   title: string;
-  slug: { current: string } | string;
+  slug: string;
   shortDescription: string;
+  body: string;
+  keyFeatures?: string[];
   icon?: ReactNode;
 }
 

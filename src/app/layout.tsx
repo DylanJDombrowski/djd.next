@@ -1,10 +1,8 @@
-import PageViewTracker from "@/components/analytics/page-view-tracker";
 import Footer from "@/components/layout/footer";
 import Header from "@/components/layout/header";
 import { Analytics } from "@vercel/analytics/next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
-import { Suspense } from "react";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -46,9 +44,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 `,
               }}
             />
-            <Suspense fallback={null}>
-              <PageViewTracker />
-            </Suspense>
           </>
         )}
       </body>
