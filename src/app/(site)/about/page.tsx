@@ -212,6 +212,36 @@ export default function AboutPage() {
               </p>
             </div>
 
+            {/* Call to action */}
+            <div className="relative overflow-hidden bg-gradient-to-r from-navy to-navy/80 text-white p-8 rounded-xl shadow-lg">
+              <div className="absolute top-0 right-0 opacity-10">
+                <svg width="300" height="300" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+                  <g transform="translate(300,300)">
+                    <path
+                      d="M151.5,-182.1C180.3,-143.9,178.5,-80.5,181.9,-21.4C185.3,37.7,193.9,92.6,172.9,131C151.9,169.4,101.3,191.4,47.6,206.2C-6.1,221,-63,228.7,-104.2,207.6C-145.4,186.5,-171,136.8,-188.5,85.8C-206,34.9,-215.4,-17.3,-201.8,-63.7C-188.2,-110.1,-151.5,-150.7,-109.4,-184.8C-67.3,-218.9,-19.8,-246.6,25.9,-246.9C71.6,-247.2,122.6,-220.2,151.5,-182.1Z"
+                      fill="#FF9800"
+                    />
+                  </g>
+                </svg>
+              </div>
+              <div className="relative z-10">
+                <h2 className="text-2xl font-semibold mb-4 text-center">Let&apos;s Create Something Great Together</h2>
+                <p className="text-lg mb-6 text-center">
+                  Whether you&apos;re looking to build a new web application, enhance an existing site, or need technical consultation,
+                  I&apos;m ready to help bring your vision to life.
+                </p>
+
+                <div className="text-center">
+                  <Link
+                    href="/contact"
+                    className="inline-block bg-orange hover:bg-orange/90 text-white font-bold py-3 px-8 rounded-lg transition shadow-md hover:shadow-lg transform hover:-translate-y-1"
+                  >
+                    Get in Touch
+                  </Link>
+                </div>
+              </div>
+            </div>
+
             {/* Beyond the code section - improved with icons */}
             <div className="mb-12 relative">
               <h2 className="text-2xl font-semibold mb-4 flex items-center relative z-10">
@@ -260,36 +290,6 @@ export default function AboutPage() {
                     The tech landscape is always evolving, and I&apos;m passionate about staying current. I regularly explore new
                     frameworks, languages, and methodologies to expand my skillset and bring fresh perspectives to my work.
                   </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Call to action */}
-            <div className="relative overflow-hidden bg-gradient-to-r from-navy to-navy/80 text-white p-8 rounded-xl shadow-lg">
-              <div className="absolute top-0 right-0 opacity-10">
-                <svg width="300" height="300" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
-                  <g transform="translate(300,300)">
-                    <path
-                      d="M151.5,-182.1C180.3,-143.9,178.5,-80.5,181.9,-21.4C185.3,37.7,193.9,92.6,172.9,131C151.9,169.4,101.3,191.4,47.6,206.2C-6.1,221,-63,228.7,-104.2,207.6C-145.4,186.5,-171,136.8,-188.5,85.8C-206,34.9,-215.4,-17.3,-201.8,-63.7C-188.2,-110.1,-151.5,-150.7,-109.4,-184.8C-67.3,-218.9,-19.8,-246.6,25.9,-246.9C71.6,-247.2,122.6,-220.2,151.5,-182.1Z"
-                      fill="#FF9800"
-                    />
-                  </g>
-                </svg>
-              </div>
-              <div className="relative z-10">
-                <h2 className="text-2xl font-semibold mb-4 text-center">Let&apos;s Create Something Great Together</h2>
-                <p className="text-lg mb-6 text-center">
-                  Whether you&apos;re looking to build a new web application, enhance an existing site, or need technical consultation,
-                  I&apos;m ready to help bring your vision to life.
-                </p>
-
-                <div className="text-center">
-                  <Link
-                    href="/contact"
-                    className="inline-block bg-orange hover:bg-orange/90 text-white font-bold py-3 px-8 rounded-lg transition shadow-md hover:shadow-lg transform hover:-translate-y-1"
-                  >
-                    Get in Touch
-                  </Link>
                 </div>
               </div>
             </div>
