@@ -8,14 +8,7 @@ export default function ScrollIndicator() {
   const [activeSection, setActiveSection] = useState("hero");
 
   useEffect(() => {
-    const sections = [
-      "hero",
-      "services",
-      "why-me",
-      "blog",
-      "testimonials",
-      "contact",
-    ];
+    const sections = ["hero", "services", "why-me", "testimonials", "contact"];
 
     const handleScroll = () => {
       const scrollPosition = window.scrollY + window.innerHeight / 3;
@@ -26,10 +19,7 @@ export default function ScrollIndicator() {
 
         const { offsetTop, offsetHeight } = element;
 
-        if (
-          scrollPosition >= offsetTop &&
-          scrollPosition < offsetTop + offsetHeight
-        ) {
+        if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
           setActiveSection(section);
           break;
         }
@@ -46,7 +36,6 @@ export default function ScrollIndicator() {
     { id: "hero", label: "Home" },
     { id: "services", label: "Services" },
     { id: "why-me", label: "Why Me" },
-    { id: "blog", label: "Blog" },
     { id: "testimonials", label: "Testimonials" },
     { id: "contact", label: "Contact" },
   ];
@@ -72,9 +61,7 @@ export default function ScrollIndicator() {
               {/* Visible dot with border */}
               <div
                 className={`w-3 h-3 rounded-full transition-all duration-300 border-2 ${
-                  activeSection === section.id
-                    ? "bg-orange border-orange scale-110"
-                    : "bg-white border-gray-400 hover:border-gray-600"
+                  activeSection === section.id ? "bg-orange border-orange scale-110" : "bg-white border-gray-400 hover:border-gray-600"
                 }`}
               ></div>
 
