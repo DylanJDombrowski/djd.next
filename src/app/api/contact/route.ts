@@ -1,10 +1,6 @@
 // src/app/api/contact/route.ts
-import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
-
-// Initialize Supabase
-const supabaseAdmin = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
 
 // Initialize Nodemailer
 const transporter = nodemailer.createTransport({
@@ -32,29 +28,10 @@ Message:
 ${message}
     `.trim();
 
-    // Store submission in Supabase
-    try {
-      const { error } = await supabaseAdmin.from("contact_submissions").insert([
-        {
-          name,
-          email,
-          subject: subject || "Website Contact Form",
-          message,
-          status: "new",
-        },
-      ]);
-
-      if (error) {
-        console.warn("Supabase storage failed:", error);
-      }
-    } catch (err) {
-      console.warn("Supabase insert error:", err);
-    }
-
     // Send email via Gmail
     await transporter.sendMail({
       from: `"${name}" <${process.env.GMAIL_USER}>`,
-      to: "dyland601@gmail.com",
+      to: "dyland601@gmail.com", // Your email address
       subject: `Contact: ${subject || "Website Inquiry"}`,
       text: formattedMessage,
       replyTo: email,
