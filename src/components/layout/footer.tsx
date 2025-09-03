@@ -19,22 +19,34 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="hover:text-orange transition-colors">
+                <Link
+                  href="/services"
+                  className="hover:text-orange transition-colors"
+                >
                   Services
                 </Link>
               </li>
               <li>
-                <Link href="/projects" className="hover:text-orange transition-colors">
+                <Link
+                  href="/projects"
+                  className="hover:text-orange transition-colors"
+                >
                   Projects
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="hover:text-orange transition-colors">
+                <Link
+                  href="/about"
+                  className="hover:text-orange transition-colors"
+                >
                   About
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-orange transition-colors">
+                <Link
+                  href="/contact"
+                  className="hover:text-orange transition-colors"
+                >
                   Contact
                 </Link>
               </li>
@@ -45,17 +57,26 @@ export default function Footer() {
             <h3 className="text-lg font-semibold mb-4">Services</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/services/web-development" className="hover:text-orange transition-colors">
+                <Link
+                  href="/services/web-development"
+                  className="hover:text-orange transition-colors"
+                >
                   Web Development
                 </Link>
               </li>
               <li>
-                <Link href="/services/website-maintenance-support" className="hover:text-orange transition-colors">
+                <Link
+                  href="/services/website-maintenance-support"
+                  className="hover:text-orange transition-colors"
+                >
                   Website Support
                 </Link>
               </li>
               <li>
-                <Link href="/services/small-business-technology-assessment" className="hover:text-orange transition-colors">
+                <Link
+                  href="/services/small-business-technology-assessment"
+                  className="hover:text-orange transition-colors"
+                >
                   SB Technology Assessment
                 </Link>
               </li>
@@ -95,12 +116,23 @@ export default function Footer() {
                   X (formerly Twitter)
                 </a>
               </li>
+              <li>
+                <Link
+                  href="/legal"
+                  className="hover:text-orange transition-colors"
+                >
+                  Legal
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
 
         <div className="border-t border-gray/20 mt-8 pt-8 text-center text-gray">
-          <p>&copy; {new Date().getFullYear()} Dylan J. Dombrowski. All rights reserved.</p>
+          <p>
+            &copy; {new Date().getFullYear()} Dylan J. Dombrowski. All rights
+            reserved.
+          </p>
         </div>
       </div>
     </footer>
