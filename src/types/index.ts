@@ -11,7 +11,7 @@ export interface Project {
   client?: string;
   projectDate?: string;
   technologies?: string[];
-  projectUrl?: string;
+  projectUrl?: string | null;
 }
 
 export interface Service {

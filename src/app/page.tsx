@@ -6,6 +6,9 @@ import ServiceCard from "@/components/services/service-card";
 import { Service, getSlugString } from "@/types";
 import { Metadata } from "next";
 import Link from "next/link";
+import { services } from "@/lib/services";
+import { testimonials } from "@/lib/testimonials";
+import { getSortedPostsData } from "@/lib/blog";
 
 export const metadata: Metadata = {
   title: "Dylan J. Dombrowski - Web Developer & IT Consultant",
@@ -13,10 +16,9 @@ export const metadata: Metadata = {
     "Professional web development and IT consulting services specializing in building modern, responsive websites and applications.",
 };
 
-// Dummy data for featured services
-const featuredServices: Service[] = [
-  // You can populate this with your service data
-];
+// Use your actual services data
+const featuredServices: Service[] = services.slice(0, 3);
+const latestPosts = getSortedPostsData().slice(0, 3);
 
 export default async function HomePage() {
   return (
@@ -26,12 +28,25 @@ export default async function HomePage() {
       <FloatingCTA />
 
       {/* Hero Section */}
-      <section id="hero" className="py-24 bg-gradient-to-br from-navy to-navy/90 text-white relative overflow-hidden">
+      <section
+        id="hero"
+        className="py-24 bg-gradient-to-br from-navy to-navy/90 text-white relative overflow-hidden"
+      >
         {/* Abstract background pattern */}
         <div className="absolute inset-0 opacity-10">
           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-              <path d="M 0 10 L 40 10 M 10 0 L 10 40" stroke="white" strokeWidth="1" fill="none" />
+            <pattern
+              id="grid"
+              width="40"
+              height="40"
+              patternUnits="userSpaceOnUse"
+            >
+              <path
+                d="M 0 10 L 40 10 M 10 0 L 10 40"
+                stroke="white"
+                strokeWidth="1"
+                fill="none"
+              />
             </pattern>
             <rect width="100%" height="100%" fill="url(#grid)" />
           </svg>
@@ -47,7 +62,8 @@ export default async function HomePage() {
             </h1>
 
             <p className="text-xl mb-10 text-white/90 max-w-2xl mx-auto">
-              I build modern web applications that help small and medium businesses solve real challenges, reduce costs, and drive growth.
+              I build modern web applications that help small and medium
+              businesses solve real challenges, reduce costs, and drive growth.
             </p>
 
             <div className="flex flex-wrap justify-center gap-4 mb-12">
@@ -69,7 +85,12 @@ export default async function HomePage() {
 
         {/* Decorative wave element */}
         <div className="absolute bottom-0 left-0 w-full overflow-hidden">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" className="relative block w-full h-16">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 1200 120"
+            preserveAspectRatio="none"
+            className="relative block w-full h-16"
+          >
             <path
               fill="white"
               d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V120H0Z"
@@ -79,13 +100,57 @@ export default async function HomePage() {
         </div>
       </section>
 
+      <section id="latest-posts" className="py-20 bg-white relative">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-navy">
+              Latest Insights
+            </h2>
+            <p className="text-lg text-navy/80">
+              A few thoughts on building software, freelancing, and technology.
+            </p>
+          </div>
+
+          <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+            {latestPosts.map(({ slug, title, summary }) => (
+              <Link
+                key={slug}
+                href={`/blog/${slug}`}
+                className="block group bg-gray-50/50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow"
+              >
+                <h3 className="text-xl font-bold text-navy group-hover:text-orange transition-colors mb-2">
+                  {title}
+                </h3>
+                <p className="text-navy/70 mb-4">{summary}</p>
+                <span className="text-orange font-semibold">Read more →</span>
+              </Link>
+            ))}
+          </div>
+
+          <div className="mt-16 text-center">
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-2 bg-white hover:bg-orange/10 text-orange font-medium py-3 px-6 rounded-md border border-orange/20 transition shadow-sm hover:shadow"
+            >
+              <span>View All Posts</span>
+              {/* ... arrow svg */}
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Services Section */}
       {featuredServices?.length > 0 && (
         <section id="services" className="py-20 bg-beige/20 relative">
           {/* Background pattern */}
           <div className="absolute inset-0 opacity-5 pointer-events-none">
             <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-              <pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse">
+              <pattern
+                id="dots"
+                width="20"
+                height="20"
+                patternUnits="userSpaceOnUse"
+              >
                 <circle cx="3" cy="3" r="1.5" fill="#333" />
               </pattern>
               <rect width="100%" height="100%" fill="url(#dots)" />
@@ -93,10 +158,13 @@ export default async function HomePage() {
           </div>
           <div className="container mx-auto px-4 mb-12">
             <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-navy animate-fade-in-up">Professional Services</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-navy animate-fade-in-up">
+                Professional Services
+              </h2>
               <p className="text-lg text-navy/80">
-                I deliver custom technology solutions that solve real business problems. Each service is tailored to meet your specific
-                needs and challenges.
+                I deliver custom technology solutions that solve real business
+                problems. Each service is tailored to meet your specific needs
+                and challenges.
               </p>
             </div>
           </div>
@@ -104,7 +172,10 @@ export default async function HomePage() {
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {featuredServices.map((service: Service) => (
-                <div key={service._id} className="transform transition duration-300 hover:-translate-y-2">
+                <div
+                  key={service._id}
+                  className="transform transition duration-300 hover:-translate-y-2"
+                >
                   <ServiceCard
                     title={service.title}
                     description={service.shortDescription}
@@ -146,9 +217,12 @@ export default async function HomePage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-navy">Why Choose Me</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-navy">
+                Why Choose Me
+              </h2>
               <p className="text-lg text-navy/80 mb-8">
-                I bring a unique blend of technical expertise and business acumen to every project.
+                I bring a unique blend of technical expertise and business
+                acumen to every project.
               </p>
             </div>
 
@@ -171,8 +245,13 @@ export default async function HomePage() {
                     <rect x="2" y="6" width="14" height="12" rx="2" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-bold mb-2 text-navy">Fast Delivery</h3>
-                <p className="text-navy/70">I work efficiently to deliver projects on time without sacrificing quality.</p>
+                <h3 className="text-xl font-bold mb-2 text-navy">
+                  Fast Delivery
+                </h3>
+                <p className="text-navy/70">
+                  I work efficiently to deliver projects on time without
+                  sacrificing quality.
+                </p>
               </div>
 
               {/* Benefit 2 */}
@@ -194,9 +273,12 @@ export default async function HomePage() {
                     <path d="M8 12h8" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-bold mb-2 text-navy">Modern Technology</h3>
+                <h3 className="text-xl font-bold mb-2 text-navy">
+                  Modern Technology
+                </h3>
                 <p className="text-navy/70">
-                  I use the latest (but reliable) technologies to build fast, reliable, and scalable solutions.
+                  I use the latest (but reliable) technologies to build fast,
+                  reliable, and scalable solutions.
                 </p>
               </div>
 
@@ -222,8 +304,13 @@ export default async function HomePage() {
                     <path d="M14 17h2" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-bold mb-2 text-navy">Clear Communication</h3>
-                <p className="text-navy/70">I keep you informed throughout the project with regular updates and clear explanations.</p>
+                <h3 className="text-xl font-bold mb-2 text-navy">
+                  Clear Communication
+                </h3>
+                <p className="text-navy/70">
+                  I keep you informed throughout the project with regular
+                  updates and clear explanations.
+                </p>
               </div>
             </div>
           </div>
@@ -232,32 +319,19 @@ export default async function HomePage() {
 
       {/* Testimonials Section */}
       <section id="testimonials" className="py-20 bg-beige/30 relative">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-navy">Client Testimonials</h2>
-            <p className="text-lg text-navy/80">
-              Don&apos;t just take my word for it. Here&apos;s what clients have to say about working with me.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {/* Testimonial 1 */}
-            <div className="bg-white p-8 rounded-lg shadow-md">
-              <div className="flex items-center mb-4">
-                <svg className="w-6 h-6 text-orange" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                </svg>
-              </div>
+        {/* ... header part is the same */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          {testimonials.map((testimonial, index) => (
+            <div key={index} className="bg-white p-8 rounded-lg shadow-md">
+              {/* ... svg icon */}
               <p className="text-navy/80 mb-4">
-                &quot;Dylan delivered our website with exceptional skill and insight. He attentively listened to our needs, provided prompt
-                solutions with creative additions, and helped us structure our data effectively. His work has helped us build a robust
-                following and share information efficiently. He&apos;s always diligent with responses and a pleasure to work with.&quot;
+                &quot;{testimonial.quote}&quot;
               </p>
               <div className="font-medium">
-                <p className="text-navy">Rodney Coffey</p>
-                <p className="text-navy/60 text-sm">Business Development Director</p>
+                <p className="text-navy">{testimonial.name}</p>
+                <p className="text-navy/60 text-sm">{testimonial.title}</p>
                 <a
-                  href="https://www.linkedin.com/in/dylanjdombrowski/details/recommendations/"
+                  href={testimonial.link}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-orange hover:underline text-sm mt-1 inline-block"
@@ -266,9 +340,7 @@ export default async function HomePage() {
                 </a>
               </div>
             </div>
-
-            {/* You can add more testimonials here as you collect them */}
-          </div>
+          ))}
         </div>
       </section>
 
@@ -276,8 +348,12 @@ export default async function HomePage() {
       <section id="contact" className="py-16 bg-navy text-white">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-4">Ready to Start Your Project?</h2>
-            <p className="text-lg mb-8">Let&apos;s discuss how I can help bring your vision to life.</p>
+            <h2 className="text-3xl font-bold mb-4">
+              Ready to Start Your Project?
+            </h2>
+            <p className="text-lg mb-8">
+              Let&apos;s discuss how I can help bring your vision to life.
+            </p>
             <Link
               href="/contact"
               className="inline-block bg-orange hover:bg-orange/90 text-white font-bold py-4 px-8 rounded-md transition transform hover:-translate-y-1 hover:shadow-lg"

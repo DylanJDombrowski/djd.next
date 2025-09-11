@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 @theme {
-  --font-sans: 'Roboto', sans-serif;
-  --font-mono: 'Philosopher', serif;
+  --font-sans: "Roboto", sans-serif;
+  --font-mono: "Philosopher", serif;
 }
 
 :root {
@@ -62,6 +62,25 @@ body {
   margin-top: 1.5em;
 }
 
+.prose h1,
+.prose h2,
+.prose h3 {
+  color: #33496a; /* navy */
+}
+
+.prose a {
+  color: #ffa500; /* orange */
+  text-decoration: underline;
+}
+
+.prose a:hover {
+  color: #33496a;
+}
+
+.prose strong {
+  color: #33496a;
+}
+
 /* Add smooth scrolling for anchor links */
 html {
   scroll-behavior: smooth;
@@ -72,15 +91,15 @@ html {
   .prose {
     font-size: 1rem;
   }
-  
+
   .prose h1 {
     font-size: 1.875rem;
   }
-  
+
   .prose h2 {
     font-size: 1.5rem;
   }
-  
+
   .prose h3 {
     font-size: 1.25rem;
   }
@@ -109,15 +128,15 @@ html {
   .prose {
     font-size: 1rem;
   }
-  
+
   .prose h1 {
     font-size: 1.75rem;
   }
-  
+
   .prose h2 {
     font-size: 1.5rem;
   }
-  
+
   .prose img {
     margin: 1.5rem 0;
   }

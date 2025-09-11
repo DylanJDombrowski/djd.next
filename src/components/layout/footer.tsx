@@ -20,6 +20,14 @@ export default function Footer() {
               </li>
               <li>
                 <Link
+                  href="/about"
+                  className="hover:text-orange transition-colors"
+                >
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/services"
                   className="hover:text-orange transition-colors"
                 >
@@ -36,12 +44,13 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/about"
+                  href="/blog"
                   className="hover:text-orange transition-colors"
                 >
-                  About
+                  Blog
                 </Link>
               </li>
+
               <li>
                 <Link
                   href="/contact"
