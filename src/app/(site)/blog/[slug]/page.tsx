@@ -38,34 +38,42 @@ export default async function BlogPostPage({
   }
 
   return (
-    <div className="py-16 md:py-24 bg-white">
-      <div className="container mx-auto px-4">
-        <article className="prose prose-lg max-w-3xl mx-auto">
-          <div className="mb-8">
-            <Link
-              href="/blog"
-              className="text-orange hover:text-orange/80 transition-colors"
-            >
-              ← Back to Blog
-            </Link>
-          </div>
-          <h1 className="text-navy">{post.frontmatter.title}</h1>
-          <p className="text-gray-500">
-            Published on{" "}
-            {new Date(post.frontmatter.publishedAt).toLocaleDateString(
-              "en-US",
-              {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              }
-            )}
-          </p>
+    <div className="bg-gray-50/50">
+      <div className="py-16 md:py-24">
+        <div className="container mx-auto px-4">
+          <article className="max-w-3xl mx-auto">
+            {/* Post Header */}
+            <div className="bg-white p-8 rounded-lg shadow-sm mb-8">
+              <div className="mb-6">
+                <Link
+                  href="/blog"
+                  className="text-orange hover:text-orange/80 transition-colors font-semibold"
+                >
+                  ← Back to Blog
+                </Link>
+              </div>
+              <h1 className="text-3xl md:text-4xl font-bold text-navy mb-4">
+                {post.frontmatter.title}
+              </h1>
+              <p className="text-gray-500">
+                Published on{" "}
+                {new Date(post.frontmatter.publishedAt).toLocaleDateString(
+                  "en-US",
+                  {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  }
+                )}
+              </p>
+            </div>
 
-          <div className="mt-8">
-            <MDXRemote source={post.content} />
-          </div>
-        </article>
+            {/* Post Content */}
+            <div className="bg-white p-8 rounded-lg shadow-sm prose prose-lg max-w-none">
+              <MDXRemote source={post.content} />
+            </div>
+          </article>
+        </div>
       </div>
     </div>
   );
