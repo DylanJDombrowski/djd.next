@@ -1,365 +1,219 @@
 // src/app/page.tsx
-import ScrollAnimation from "@/components/home/scroll-animation";
-import ScrollIndicator from "@/components/home/scroll-indicator";
-import FloatingCTA from "@/components/mobile/floating-cta";
-import ServiceCard from "@/components/services/service-card";
-import { Service, getSlugString } from "@/types";
 import { Metadata } from "next";
 import Link from "next/link";
-import { services } from "@/lib/services";
-import { testimonials } from "@/lib/testimonials";
 import { getSortedPostsData } from "@/lib/blog";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { ArrowRight, Code2, Zap, Heart } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Dylan J. Dombrowski - Web Developer & IT Consultant",
+  title: "Dylan J. Dombrowski - Builder, Developer, Human",
   description:
-    "Professional web development and IT consulting services specializing in building modern, responsive websites and applications.",
+    "Building software that matters. Currently focused on Billable, a time-tracking SaaS for freelancers. Available for web development projects.",
 };
 
-// Use your actual services data
-const featuredServices: Service[] = services.slice(0, 3);
-const latestPosts = getSortedPostsData().slice(0, 3);
+const latestPosts = getSortedPostsData().slice(0, 2);
 
 export default async function HomePage() {
   return (
-    <main>
-      <ScrollIndicator />
-      <ScrollAnimation />
-      <FloatingCTA />
+    <main className="min-h-screen">
+      {/* Hero Section - You + Billable */}
+      <section className="py-20 md:py-32 bg-gradient-to-b from-secondary/50 to-background">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center space-y-6">
+            <Badge variant="secondary" className="mb-4">
+              Open to side projects
+            </Badge>
 
-      {/* Hero Section */}
-      <section
-        id="hero"
-        className="py-24 bg-gradient-to-br from-navy to-navy/90 text-white relative overflow-hidden"
-      >
-        {/* Abstract background pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-            <pattern
-              id="grid"
-              width="40"
-              height="40"
-              patternUnits="userSpaceOnUse"
-            >
-              <path
-                d="M 0 10 L 40 10 M 10 0 L 10 40"
-                stroke="white"
-                strokeWidth="1"
-                fill="none"
-              />
-            </pattern>
-            <rect width="100%" height="100%" fill="url(#grid)" />
-          </svg>
-        </div>
-
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="mb-6 inline-block"></div>
-
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-              Technology Solutions <br className="hidden md:block" />
-              That <span className="text-orange">Deliver</span> Results
+            <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
+              Hi, I&apos;m Dylan.{" "}
+              <span className="text-orange">I build things</span> that solve real problems.
             </h1>
 
-            <p className="text-xl mb-10 text-white/90 max-w-2xl mx-auto">
-              I build modern web applications that help small and medium
-              businesses solve real challenges, reduce costs, and drive growth.
+            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
+              Developer passionate about building, growing, and healing through technology.
+              Currently shipping <span className="font-semibold text-foreground">Billable</span>,
+              a time-tracking SaaS for freelancers who are tired of losing billable hours.
             </p>
 
-            <div className="flex flex-wrap justify-center gap-4 mb-12">
-              <Link
-                href="/services"
-                className="bg-orange hover:bg-orange/90 text-white font-bold py-3 px-8 rounded-md transition transform hover:-translate-y-1 shadow-lg"
-              >
-                Explore Services
-              </Link>
-              <Link
-                href="/contact"
-                className="bg-transparent hover:bg-white/20 text-white font-bold py-3 px-8 rounded-md border border-white transition hover:shadow-lg"
-              >
-                Get in Touch
-              </Link>
+            <div className="flex flex-wrap justify-center gap-4 pt-6">
+              <Button asChild size="lg" className="bg-orange hover:bg-orange/90">
+                <Link href="https://trybillable.com" target="_blank" rel="noopener noreferrer">
+                  Try Billable <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+              <Button asChild variant="outline" size="lg">
+                <Link href="/contact">
+                  Work with me
+                </Link>
+              </Button>
             </div>
           </div>
         </div>
-
-        {/* Decorative wave element */}
-        <div className="absolute bottom-0 left-0 w-full overflow-hidden">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 1200 120"
-            preserveAspectRatio="none"
-            className="relative block w-full h-16"
-          >
-            <path
-              fill="white"
-              d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V120H0Z"
-              opacity="0.05"
-            ></path>
-          </svg>
-        </div>
       </section>
 
-      <section id="latest-posts" className="py-20 bg-white relative">
+      {/* Billable Feature Section */}
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-navy">
-              Latest Insights
-            </h2>
-            <p className="text-lg text-navy/80">
-              A few thoughts on building software, freelancing, and technology.
-            </p>
-          </div>
+          <div className="max-w-5xl mx-auto">
+            <Card className="border-2 hover:border-orange/50 transition-colors">
+              <CardHeader>
+                <div className="flex items-start justify-between">
+                  <div>
+                    <CardTitle className="text-3xl mb-2">Billable</CardTitle>
+                    <CardDescription className="text-lg">
+                      Time tracking and invoicing, simplified
+                    </CardDescription>
+                  </div>
+                  <Badge className="bg-orange hover:bg-orange/90">Current Focus</Badge>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <p className="text-lg text-muted-foreground">
+                  Built for freelancers and consultants who know the pain of tracking hours across
+                  multiple projects. Billable helps you capture every billable minute and get paid faster.
+                </p>
 
-          <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-            {latestPosts.map(({ slug, title, summary }) => (
-              <Link
-                key={slug}
-                href={`/blog/${slug}`}
-                className="block group bg-gray-50/50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow"
-              >
-                <h3 className="text-xl font-bold text-navy group-hover:text-orange transition-colors mb-2">
-                  {title}
-                </h3>
-                <p className="text-navy/70 mb-4">{summary}</p>
-                <span className="text-orange font-semibold">Read more →</span>
-              </Link>
-            ))}
-          </div>
+                <div className="grid md:grid-cols-3 gap-4">
+                  <div className="flex items-start gap-3">
+                    <div className="bg-orange/10 p-2 rounded-lg">
+                      <Zap className="h-5 w-5 text-orange" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold mb-1">Fast tracking</h3>
+                      <p className="text-sm text-muted-foreground">Start and stop timers with one click</p>
+                    </div>
+                  </div>
 
-          <div className="mt-16 text-center">
-            <Link
-              href="/blog"
-              className="inline-flex items-center gap-2 bg-white hover:bg-orange/10 text-orange font-medium py-3 px-6 rounded-md border border-orange/20 transition shadow-sm hover:shadow"
-            >
-              <span>View All Posts</span>
-              {/* ... arrow svg */}
-            </Link>
+                  <div className="flex items-start gap-3">
+                    <div className="bg-orange/10 p-2 rounded-lg">
+                      <Code2 className="h-5 w-5 text-orange" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold mb-1">Clean invoices</h3>
+                      <p className="text-sm text-muted-foreground">Professional invoices in seconds</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <div className="bg-orange/10 p-2 rounded-lg">
+                      <Heart className="h-5 w-5 text-orange" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold mb-1">Made with care</h3>
+                      <p className="text-sm text-muted-foreground">Built by a freelancer, for freelancers</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex gap-4 pt-4">
+                  <Button asChild className="bg-orange hover:bg-orange/90">
+                    <Link href="https://trybillable.com" target="_blank" rel="noopener noreferrer">
+                      Visit Billable
+                    </Link>
+                  </Button>
+                  <Button asChild variant="outline">
+                    <Link href="/blog/why-i-built-billable">
+                      Read the story
+                    </Link>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
 
-      {/* Services Section */}
-      {featuredServices?.length > 0 && (
-        <section id="services" className="py-20 bg-beige/20 relative">
-          {/* Background pattern */}
-          <div className="absolute inset-0 opacity-5 pointer-events-none">
-            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-              <pattern
-                id="dots"
-                width="20"
-                height="20"
-                patternUnits="userSpaceOnUse"
-              >
-                <circle cx="3" cy="3" r="1.5" fill="#333" />
-              </pattern>
-              <rect width="100%" height="100%" fill="url(#dots)" />
-            </svg>
-          </div>
-          <div className="container mx-auto px-4 mb-12">
-            <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-navy animate-fade-in-up">
-                Professional Services
-              </h2>
-              <p className="text-lg text-navy/80">
-                I deliver custom technology solutions that solve real business
-                problems. Each service is tailored to meet your specific needs
-                and challenges.
-              </p>
-            </div>
-          </div>
+      <Separator className="max-w-5xl mx-auto" />
 
+      {/* Recent Writing */}
+      {latestPosts.length > 0 && (
+        <section className="py-20 bg-background">
           <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {featuredServices.map((service: Service) => (
-                <div
-                  key={service._id}
-                  className="transform transition duration-300 hover:-translate-y-2"
-                >
-                  <ServiceCard
-                    title={service.title}
-                    description={service.shortDescription}
-                    slug={getSlugString(service.slug)}
-                    icon={service.icon}
-                  />
-                </div>
-              ))}
-            </div>
+            <div className="max-w-5xl mx-auto">
+              <div className="mb-12">
+                <h2 className="text-3xl font-bold mb-3">Recent Writing</h2>
+                <p className="text-muted-foreground">
+                  Thoughts on building software, freelancing, and shipping products
+                </p>
+              </div>
 
-            <div className="mt-16 text-center">
-              <Link
-                href="/services"
-                className="inline-flex items-center gap-2 bg-white hover:bg-orange/10 text-orange font-medium py-3 px-6 rounded-md border border-orange/20 transition shadow-sm hover:shadow"
-              >
-                <span>View all services</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M5 12h14"></path>
-                  <path d="m12 5 7 7-7 7"></path>
-                </svg>
-              </Link>
+              <div className="grid md:grid-cols-2 gap-6">
+                {latestPosts.map(({ slug, title, summary }) => (
+                  <Card key={slug} className="hover:border-orange/50 transition-colors">
+                    <CardHeader>
+                      <CardTitle className="text-xl">
+                        <Link href={`/blog/${slug}`} className="hover:text-orange transition-colors">
+                          {title}
+                        </Link>
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground mb-4">{summary}</p>
+                      <Link
+                        href={`/blog/${slug}`}
+                        className="text-orange font-medium hover:underline inline-flex items-center gap-1"
+                      >
+                        Read more <ArrowRight className="h-4 w-4" />
+                      </Link>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+
+              <div className="mt-8 text-center">
+                <Button asChild variant="outline">
+                  <Link href="/blog">
+                    View all posts
+                  </Link>
+                </Button>
+              </div>
             </div>
           </div>
         </section>
       )}
 
-      {/* Why Choose Me Section */}
-      <section id="why-me" className="py-20 bg-white relative">
+      <Separator className="max-w-5xl mx-auto" />
+
+      {/* Quick About */}
+      <section className="py-20 bg-secondary/30">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-navy">
-                Why Choose Me
-              </h2>
-              <p className="text-lg text-navy/80 mb-8">
-                I bring a unique blend of technical expertise and business
-                acumen to every project.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-              {/* Benefit 1 */}
-              <div className="text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-orange/10 text-orange mb-4">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="m22 8-6 4 6 4V8Z" />
-                    <rect x="2" y="6" width="14" height="12" rx="2" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-bold mb-2 text-navy">
-                  Fast Delivery
-                </h3>
-                <p className="text-navy/70">
-                  I work efficiently to deliver projects on time without
-                  sacrificing quality.
-                </p>
-              </div>
-
-              {/* Benefit 2 */}
-              <div className="text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-orange/10 text-orange mb-4">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <circle cx="12" cy="12" r="10" />
-                    <path d="m12 16 4-4-4-4" />
-                    <path d="M8 12h8" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-bold mb-2 text-navy">
-                  Modern Technology
-                </h3>
-                <p className="text-navy/70">
-                  I use the latest (but reliable) technologies to build fast,
-                  reliable, and scalable solutions.
-                </p>
-              </div>
-
-              {/* Benefit 3 */}
-              <div className="text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-orange/10 text-orange mb-4">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
-                    <polyline points="14 2 14 8 20 8" />
-                    <path d="M8 13h2" />
-                    <path d="M8 17h2" />
-                    <path d="M14 13h2" />
-                    <path d="M14 17h2" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-bold mb-2 text-navy">
-                  Clear Communication
-                </h3>
-                <p className="text-navy/70">
-                  I keep you informed throughout the project with regular
-                  updates and clear explanations.
-                </p>
-              </div>
-            </div>
+          <div className="max-w-3xl mx-auto text-center space-y-6">
+            <h2 className="text-3xl font-bold">A bit about me</h2>
+            <p className="text-lg text-muted-foreground">
+              I went from slinging pizzas in a family kitchen to building web applications.
+              That journey taught me that whether you&apos;re crafting the perfect pie or shipping
+              software, it&apos;s all about attention to detail and making something people actually want.
+            </p>
+            <p className="text-lg text-muted-foreground">
+              These days, I&apos;m working in corporate tech while building Billable on the side.
+              I love creating things that help people work better and live fuller lives.
+            </p>
+            <Button asChild variant="outline" size="lg">
+              <Link href="/about">
+                More about me
+              </Link>
+            </Button>
           </div>
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section id="testimonials" className="py-20 bg-beige/30 relative">
-        {/* ... header part is the same */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          {testimonials.map((testimonial, index) => (
-            <div key={index} className="bg-white p-8 rounded-lg shadow-md">
-              {/* ... svg icon */}
-              <p className="text-navy/80 mb-4">
-                &quot;{testimonial.quote}&quot;
-              </p>
-              <div className="font-medium">
-                <p className="text-navy">{testimonial.name}</p>
-                <p className="text-navy/60 text-sm">{testimonial.title}</p>
-                <a
-                  href={testimonial.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-orange hover:underline text-sm mt-1 inline-block"
-                >
-                  View on LinkedIn →
-                </a>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Contact CTA Section */}
-      <section id="contact" className="py-16 bg-navy text-white">
+      {/* Contact CTA */}
+      <section className="py-16 bg-foreground text-background">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-4">
-              Ready to Start Your Project?
-            </h2>
-            <p className="text-lg mb-8">
-              Let&apos;s discuss how I can help bring your vision to life.
+          <div className="max-w-3xl mx-auto text-center space-y-6">
+            <h2 className="text-3xl font-bold">Let&apos;s build something together</h2>
+            <p className="text-lg opacity-90">
+              Need help with a web project? Want to chat about an idea? I&apos;m available for
+              freelance work and always happy to connect.
             </p>
-            <Link
-              href="/contact"
-              className="inline-block bg-orange hover:bg-orange/90 text-white font-bold py-4 px-8 rounded-md transition transform hover:-translate-y-1 hover:shadow-lg"
-            >
-              Get in Touch
-            </Link>
+            <Button asChild size="lg" variant="secondary" className="bg-orange hover:bg-orange/90 text-white">
+              <Link href="/contact">
+                Get in touch
+              </Link>
+            </Button>
           </div>
         </div>
       </section>

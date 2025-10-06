@@ -2,17 +2,17 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="bg-navy text-beige mt-12">
+    <footer className="bg-foreground text-background mt-12">
       <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <h3 className="text-xl font-semibold mb-4">Dylan J. Dombrowski</h3>
-            <p className="text-gray">Web Developer & IT Consultant</p>
+            <p className="opacity-80">Builder. Developer. Human.</p>
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold mb-4">Navigation</h3>
-            <ul className="space-y-2">
+            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+            <ul className="space-y-2 opacity-80">
               <li>
                 <Link href="/" className="hover:text-orange transition-colors">
                   Home
@@ -24,14 +24,6 @@ export default function Footer() {
                   className="hover:text-orange transition-colors"
                 >
                   About
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services"
-                  className="hover:text-orange transition-colors"
-                >
-                  Services
                 </Link>
               </li>
               <li>
@@ -50,7 +42,6 @@ export default function Footer() {
                   Blog
                 </Link>
               </li>
-
               <li>
                 <Link
                   href="/contact"
@@ -63,38 +54,18 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold mb-4">Services</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link
-                  href="/services/web-development"
-                  className="hover:text-orange transition-colors"
-                >
-                  Web Development
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services/website-maintenance-support"
-                  className="hover:text-orange transition-colors"
-                >
-                  Website Support
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services/small-business-technology-assessment"
-                  className="hover:text-orange transition-colors"
-                >
-                  SB Technology Assessment
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
             <h3 className="text-lg font-semibold mb-4">Connect</h3>
-            <ul className="space-y-2">
+            <ul className="space-y-2 opacity-80">
+              <li>
+                <a
+                  href="https://trybillable.com"
+                  className="hover:text-orange transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Billable (My SaaS)
+                </a>
+              </li>
               <li>
                 <a
                   href="https://github.com/DylanJDombrowski"
@@ -122,22 +93,14 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  X (formerly Twitter)
+                  X (Twitter)
                 </a>
-              </li>
-              <li>
-                <Link
-                  href="/legal"
-                  className="hover:text-orange transition-colors"
-                >
-                  Legal
-                </Link>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-gray/20 mt-8 pt-8 text-center text-gray">
+        <div className="border-t border-white/10 mt-8 pt-8 text-center opacity-80">
           <p>
             &copy; {new Date().getFullYear()} Dylan J. Dombrowski. All rights
             reserved.

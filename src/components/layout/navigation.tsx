@@ -8,7 +8,6 @@ import { usePathname } from "next/navigation";
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
-  { href: "/services", label: "Services" },
   { href: "/projects", label: "Projects" },
   { href: "/blog", label: "Blog" },
   { href: "/contact", label: "Contact" },
@@ -24,7 +23,7 @@ export default function Navigation() {
           key={href}
           href={href}
           className={cn(
-            "text-navy/80 hover:text-orange transition-colors duration-300 font-medium",
+            "text-foreground/70 hover:text-orange transition-colors duration-300 font-medium",
             pathname === href && "text-orange"
           )}
         >
