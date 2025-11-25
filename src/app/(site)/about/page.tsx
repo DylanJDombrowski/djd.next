@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Code2, Server, Wrench } from "lucide-react";
+import { Code2, Server, Wrench, Download } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "About Dylan | Developer & Writer",
@@ -219,11 +219,19 @@ export default function AboutPage() {
                 Whether you&apos;re building something new, need help with an existing project, or just
                 want to chat about an idea—I&apos;m here for it.
               </p>
-              <Button asChild size="lg" variant="secondary" className="bg-orange hover:bg-orange/90 text-white">
-                <Link href="/contact">
-                  Get in touch
-                </Link>
-              </Button>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button asChild size="lg" variant="secondary" className="bg-orange hover:bg-orange/90 text-white">
+                  <Link href="/contact">
+                    Get in touch
+                  </Link>
+                </Button>
+                <Button asChild size="lg" variant="outline" className="border-white/20 hover:bg-white/10">
+                  <a href="/resume.pdf" download="Dylan_Dombrowski_Resume.pdf">
+                    <Download className="mr-2 h-4 w-4" />
+                    Download Resume
+                  </a>
+                </Button>
+              </div>
             </CardContent>
           </Card>
         </div>
