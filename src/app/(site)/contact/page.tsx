@@ -17,14 +17,14 @@ export default function ContactPage() {
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
               Get in Touch
             </h1>
-            <p className="text-lg text-navy/80">
+            <p className="text-lg text-muted-foreground">
               Have a project in mind or want to discuss how we can work
               together? Fill out the form below, and I&apos;ll get back to you
               soon.
             </p>
           </div>
 
-          <div className="bg-white p-8 rounded-lg shadow-md">
+          <div className="bg-card border border-border p-8 rounded-lg shadow-md">
             <ContactForm />
           </div>
 

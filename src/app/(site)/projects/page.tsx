@@ -15,7 +15,7 @@ export default async function ProjectsPage() {
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">Projects</h1>
-          <p className="text-lg text-navy/80">
+          <p className="text-lg text-muted-foreground">
             A showcase of my recent work, including web development, application design, and IT consulting projects.
           </p>
         </div>
