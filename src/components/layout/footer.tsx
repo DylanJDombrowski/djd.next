@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <h3 className="text-xl font-semibold mb-4">Dylan J. Dombrowski</h3>
-            <p className="opacity-80">Builder. Developer. Human.</p>
+            <p className="opacity-80">Developer & Writer</p>
           </div>
 
           <div>
@@ -36,14 +36,6 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/blog"
-                  className="hover:text-orange transition-colors"
-                >
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link
                   href="/contact"
                   className="hover:text-orange transition-colors"
                 >
@@ -58,12 +50,12 @@ export default function Footer() {
             <ul className="space-y-2 opacity-80">
               <li>
                 <a
-                  href="https://trybillable.com"
+                  href="https://dylandombro.substack.com/?r=sisxq&utm_campaign=pub-share-checklist&utm_source=dylanjdombrowski&utm_medium=website-footer"
                   className="hover:text-orange transition-colors"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Billable (My SaaS)
+                  Substack
                 </a>
               </li>
               <li>
