@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Navigation from './navigation'
+import { ThemeToggle } from '@/components/theme-toggle'
 
 export default function Header() {
   return (
@@ -8,7 +9,10 @@ export default function Header() {
         <Link href="/" className="font-semibold text-xl hover:text-orange transition-colors">
           Dylan J. Dombrowski
         </Link>
-        <Navigation />
+        <div className="flex items-center gap-4">
+          <Navigation />
+          <ThemeToggle />
+        </div>
       </div>
     </header>
   )
