@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Home, Search } from "lucide-react";
+import { Home, BookOpen } from "lucide-react";
 
 export default function NotFound() {
   return (
@@ -35,10 +35,10 @@ export default function NotFound() {
                   </Link>
                 </Button>
                 <Button asChild variant="outline">
-                  <Link href="/blog">
-                    <Search className="mr-2 h-4 w-4" />
-                    Browse Writing
-                  </Link>
+                  <a href="https://substack.com/@dylandombro?utm_campaign=profile&utm_medium=profile-page&utm_source=404" target="_blank" rel="noopener noreferrer">
+                    <BookOpen className="mr-2 h-4 w-4" />
+                    Read on Substack
+                  </a>
                 </Button>
               </div>
 

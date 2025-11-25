@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight } from "lucide-react";
 import SubstackPosts from "@/components/substack/substack-posts";
 import SubscribeWidget from "@/components/substack/subscribe-widget";
@@ -100,19 +101,23 @@ export default async function HomePage() {
       </section>
 
       {/* Contact CTA */}
-      <section className="py-16 bg-foreground text-background">
+      <section className="py-20 bg-gradient-to-b from-background to-secondary/30">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center space-y-6">
-            <h2 className="text-3xl font-bold">Let&apos;s build something together</h2>
-            <p className="text-lg opacity-90">
-              Need help with a web project? Want to chat about an idea? I&apos;m available for
-              freelance work and always happy to connect.
-            </p>
-            <Button asChild size="lg" variant="secondary" className="bg-orange hover:bg-orange/90 text-white">
-              <Link href="/contact">
-                Get in touch
-              </Link>
-            </Button>
+          <div className="max-w-3xl mx-auto text-center">
+            <Card className="border-2 border-orange/20">
+              <CardContent className="pt-10 pb-10 space-y-6">
+                <h2 className="text-3xl font-bold">Let&apos;s build something together</h2>
+                <p className="text-lg text-muted-foreground">
+                  Need help with a web project? Want to chat about an idea? I&apos;m available for
+                  freelance work and always happy to connect.
+                </p>
+                <Button asChild size="lg" className="bg-orange hover:bg-orange/90">
+                  <Link href="/contact">
+                    Get in touch
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
