@@ -190,11 +190,6 @@ export default function NowPage() {
               </div>
             </CardContent>
           </Card>
-
-          {/* Update Reminder */}
-          <p className="text-center text-sm text-muted-foreground mt-8">
-            💡 Remember to update this page monthly to keep it fresh!
-          </p>
         </div>
       </div>
     </div>

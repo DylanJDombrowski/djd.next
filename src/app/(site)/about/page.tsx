@@ -212,20 +212,20 @@ export default function AboutPage() {
 
         {/* CTA */}
         <div className="max-w-3xl mx-auto text-center">
-          <Card className="bg-foreground text-background border-0">
+          <Card className="bg-secondary/50 border-2">
             <CardContent className="pt-8 pb-8 space-y-6">
               <h2 className="text-3xl font-bold">Let&apos;s Work Together</h2>
-              <p className="text-lg opacity-90">
+              <p className="text-lg text-muted-foreground">
                 Whether you&apos;re building something new, need help with an existing project, or just
                 want to chat about an idea—I&apos;m here for it.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button asChild size="lg" variant="secondary" className="bg-orange hover:bg-orange/90 text-white">
+                <Button asChild size="lg" className="bg-orange hover:bg-orange/90 text-white">
                   <Link href="/contact">
                     Get in touch
                   </Link>
                 </Button>
-                <Button asChild size="lg" variant="outline" className="border-white/20 hover:bg-white/10">
+                <Button asChild size="lg" variant="outline" className="border-2 border-orange/50 hover:bg-orange/10 hover:border-orange">
                   <a href="/resume.pdf" download="Dylan_Dombrowski_Resume.pdf">
                     <Download className="mr-2 h-4 w-4" />
                     Download Resume
