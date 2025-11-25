@@ -12,16 +12,9 @@ export default function ProjectCard({
   client,
   date,
   technologies,
-  isDark = false,
 }: ProjectCardProps) {
   return (
-    <div
-      className={`rounded-lg overflow-hidden border ${
-        isDark
-          ? "bg-navy/30 border-white/10 text-white"
-          : "bg-white border-gray/10 text-navy"
-      }`}
-    >
+    <div className="rounded-lg overflow-hidden border border-border bg-card text-card-foreground hover:border-orange/50 transition-colors">
       {imageUrl ? (
         <div className="relative h-48 md:h-64">
           <Image
@@ -33,23 +26,19 @@ export default function ProjectCard({
           />
         </div>
       ) : (
-        <div
-          className={`h-48 md:h-64 ${isDark ? "bg-gray/20" : "bg-gray/10"}`}
-        ></div>
+        <div className="h-48 md:h-64 bg-muted"></div>
       )}
 
       <div className="p-6">
         {client && (
-          <div
-            className={`text-sm mb-1 ${isDark ? "text-beige/70" : "text-navy/70"}`}
-          >
+          <div className="text-sm mb-1 text-muted-foreground">
             {client}
           </div>
         )}
 
         <h3 className="text-xl font-semibold mb-2">{title}</h3>
 
-        <p className={`mb-4 ${isDark ? "text-beige/80" : "text-navy/80"}`}>
+        <p className="mb-4 text-muted-foreground">
           {description}
         </p>
 
@@ -58,9 +47,7 @@ export default function ProjectCard({
             {technologies.map((tech) => (
               <span
                 key={tech}
-                className={`text-xs px-2 py-1 rounded-full ${
-                  isDark ? "bg-white/10 text-beige" : "bg-navy/10 text-navy"
-                }`}
+                className="text-xs px-2 py-1 rounded-full bg-secondary text-secondary-foreground"
               >
                 {tech}
               </span>
@@ -69,16 +56,14 @@ export default function ProjectCard({
         )}
 
         {date && (
-          <div
-            className={`text-sm mb-4 ${isDark ? "text-beige/70" : "text-navy/70"}`}
-          >
+          <div className="text-sm mb-4 text-muted-foreground">
             {formatDate(date)}
           </div>
         )}
 
         <Link
           href={`/projects/${slug}`}
-          className={`text-orange hover:underline inline-block ${isDark ? "text-orange" : ""}`}
+          className="text-orange hover:underline inline-block font-medium"
         >
           View Case Study →
         </Link>

@@ -69,14 +69,14 @@ export default function ContactForm() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.3 }}
-            className="absolute inset-0 bg-green-50 flex flex-col items-center justify-center rounded-lg z-10 p-8 text-center"
+            className="absolute inset-0 bg-green-50 dark:bg-green-950 flex flex-col items-center justify-center rounded-lg z-10 p-8 text-center"
           >
-            <FiCheckCircle className="text-green-500 text-5xl mb-4" />
-            <h3 className="text-2xl font-bold text-green-800 mb-2">Message Sent!</h3>
-            <p className="text-green-700 mb-6">Thank you for reaching out. I&apos;ll get back to you as soon as possible.</p>
+            <FiCheckCircle className="text-green-500 dark:text-green-400 text-5xl mb-4" />
+            <h3 className="text-2xl font-bold text-green-800 dark:text-green-200 mb-2">Message Sent!</h3>
+            <p className="text-green-700 dark:text-green-300 mb-6">Thank you for reaching out. I&apos;ll get back to you as soon as possible.</p>
             <button
               onClick={() => setStatus("idle")}
-              className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-md transition"
+              className="bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600 text-white font-bold py-2 px-6 rounded-md transition"
             >
               Send Another Message
             </button>
@@ -92,7 +92,7 @@ export default function ContactForm() {
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label htmlFor="name" className="block text-sm font-medium mb-1">
+            <label htmlFor="name" className="block text-sm font-medium mb-1 text-foreground">
               Name <span className="text-red-500">*</span>
             </label>
             <input
@@ -102,12 +102,12 @@ export default function ContactForm() {
               required
               value={formData.name}
               onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange"
+              className="w-full px-4 py-2 border border-input bg-background text-foreground rounded-md focus:outline-none focus:ring-2 focus:ring-orange"
             />
           </div>
 
           <div>
-            <label htmlFor="email" className="block text-sm font-medium mb-1">
+            <label htmlFor="email" className="block text-sm font-medium mb-1 text-foreground">
               Email <span className="text-red-500">*</span>
             </label>
             <input
@@ -117,8 +117,8 @@ export default function ContactForm() {
               required
               value={formData.email}
               onChange={handleChange}
-              className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-orange ${
-                formData.email && !isEmailValid(formData.email) ? "border-red-500" : "border-gray-300"
+              className={`w-full px-4 py-2 border bg-background text-foreground rounded-md focus:outline-none focus:ring-2 focus:ring-orange ${
+                formData.email && !isEmailValid(formData.email) ? "border-red-500" : "border-input"
               }`}
             />
             {formData.email && !isEmailValid(formData.email) && (
@@ -128,7 +128,7 @@ export default function ContactForm() {
         </div>
 
         <div>
-          <label htmlFor="subject" className="block text-sm font-medium mb-1">
+          <label htmlFor="subject" className="block text-sm font-medium mb-1 text-foreground">
             Subject
           </label>
           <input
@@ -137,12 +137,12 @@ export default function ContactForm() {
             type="text"
             value={formData.subject}
             onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange"
+            className="w-full px-4 py-2 border border-input bg-background text-foreground rounded-md focus:outline-none focus:ring-2 focus:ring-orange"
           />
         </div>
 
         <div>
-          <label htmlFor="message" className="block text-sm font-medium mb-1">
+          <label htmlFor="message" className="block text-sm font-medium mb-1 text-foreground">
             Message <span className="text-red-500">*</span>
           </label>
           <textarea
@@ -152,7 +152,7 @@ export default function ContactForm() {
             required
             value={formData.message}
             onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange"
+            className="w-full px-4 py-2 border border-input bg-background text-foreground rounded-md focus:outline-none focus:ring-2 focus:ring-orange"
           />
         </div>
 
@@ -167,7 +167,7 @@ export default function ContactForm() {
           </button>
 
           {status === "error" && (
-            <div className="mt-4 text-red-600 flex items-center gap-2">
+            <div className="mt-4 text-red-600 dark:text-red-400 flex items-center gap-2">
               <FiAlertCircle />
               <span>{errorMessage || "An error occurred. Please try again."}</span>
             </div>
