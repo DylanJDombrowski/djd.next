@@ -8,8 +8,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Dylan J. Dombrowski - Developer & Consultant",
-  description: "Professional web development and IT consulting services by Dylan J. Dombrowski.",
+  title: "Dylan J. Dombrowski - Developer & Writer",
+  description: "Full-stack developer and writer sharing ideas about software, business, and life. Available for web development projects and consulting.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

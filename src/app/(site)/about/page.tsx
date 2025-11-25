@@ -8,9 +8,9 @@ import { Badge } from "@/components/ui/badge";
 import { Code2, Server, Wrench } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "About Dylan | Web Developer & Builder",
+  title: "About Dylan | Developer & Writer",
   description:
-    "From pizza kitchens to web development. Learn about Dylan's journey building software that matters.",
+    "From pizza kitchens to web development and writing. Learn about Dylan's journey building software and sharing ideas.",
 };
 
 export default function AboutPage() {
@@ -164,7 +164,19 @@ export default function AboutPage() {
         {/* Beyond the code */}
         <div className="max-w-4xl mx-auto mb-20">
           <h2 className="text-3xl font-bold mb-8 text-center">Beyond the Code</h2>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <Card className="hover:border-orange/50 transition-colors">
+              <CardContent className="pt-6">
+                <h3 className="text-xl font-bold mb-3">✍️ Writing</h3>
+                <p className="text-muted-foreground">
+                  I share my thoughts on software, business, and life on my{" "}
+                  <Link href="https://dylandombro.substack.com/?r=sisxq&utm_campaign=pub-share-checklist&utm_source=dylanjdombrowski&utm_medium=website-about" target="_blank" rel="noopener noreferrer" className="text-orange hover:underline">
+                    Substack
+                  </Link>. Writing helps me clarify my thinking and connect with others.
+                </p>
+              </CardContent>
+            </Card>
+
             <Card className="hover:border-orange/50 transition-colors">
               <CardContent className="pt-6">
                 <h3 className="text-xl font-bold mb-3">🍕 In the Kitchen</h3>
