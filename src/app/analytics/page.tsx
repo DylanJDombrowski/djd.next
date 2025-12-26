@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 interface AnalyticsData {
@@ -47,7 +47,7 @@ export default function AnalyticsDashboard() {
   const [daysRange, setDaysRange] = useState(7);
   const [autoRefresh, setAutoRefresh] = useState(true);
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       const response = await fetch(`/api/analytics/data?days=${daysRange}`);
 
@@ -63,11 +63,11 @@ export default function AnalyticsDashboard() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [daysRange]);
 
   useEffect(() => {
     fetchData();
-  }, [daysRange]);
+  }, [fetchData]);
 
   // Auto-refresh every 5 minutes
   useEffect(() => {
@@ -78,7 +78,7 @@ export default function AnalyticsDashboard() {
     }, 5 * 60 * 1000); // 5 minutes
 
     return () => clearInterval(interval);
-  }, [autoRefresh, daysRange]);
+  }, [autoRefresh, fetchData]);
 
   const formatDuration = (seconds: string) => {
     const sec = parseFloat(seconds);
