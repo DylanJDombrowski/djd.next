@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analytics Widget</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #ffffff;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .widget-container {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .title {
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .refresh-indicator {
+      width: 10px;
+      height: 10px;
+      background: #4ade80;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
+    }
+
+    .realtime-section {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .realtime-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0.8;
+      margin-bottom: 5px;
+    }
+
+    .realtime-value {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 15px;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      opacity: 0.8;
+      margin-bottom: 5px;
+    }
+
+    .stat-value {
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .stat-subtitle {
+      font-size: 10px;
+      opacity: 0.7;
+      margin-top: 3px;
+    }
+
+    .top-sources {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 15px;
+    }
+
+    .section-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0.8;
+      margin-bottom: 10px;
+    }
+
+    .source-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .source-item:last-child {
+      border-bottom: none;
+    }
+
+    .source-name {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .source-count {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .last-updated {
+      text-align: center;
+      font-size: 10px;
+      opacity: 0.6;
+      margin-top: 20px;
+    }
+
+    .error {
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-radius: 12px;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 40px;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-top-color: #ffffff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 15px;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .config-form {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 10px 15px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      font-size: 14px;
+    }
+
+    .form-input::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      background: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+  </style>
+</head>
+<body>
+  <div class="widget-container" id="widget">
+    <div class="loading">
+      <div class="spinner"></div>
+      <div>Loading...</div>
+    </div>
+  </div>
+
+  <script>
+    // Configuration
+    const CONFIG_KEY = 'analytics_widget_config';
+    let config = {
+      siteUrl: '',
+      password: ''
+    };
+
+    // Load config from localStorage
+    function loadConfig() {
+      const saved = localStorage.getItem(CONFIG_KEY);
+      if (saved) {
+        config = JSON.parse(saved);
+        return true;
+      }
+      return false;
+    }
+
+    // Save config to localStorage
+    function saveConfig() {
+      localStorage.setItem(CONFIG_KEY, JSON.stringify(config));
+    }
+
+    // Show configuration form
+    function showConfigForm() {
+      const widget = document.getElementById('widget');
+      widget.innerHTML = `
+        <div class="header">
+          <div class="title">Setup Widget</div>
+        </div>
+        <div class="config-form">
+          <div class="form-group">
+            <label class="form-label">Your Site URL</label>
+            <input
+              type="text"
+              class="form-input"
+              id="siteUrl"
+              placeholder="https://yoursite.com"
+              value="${config.siteUrl}"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Analytics Password</label>
+            <input
+              type="password"
+              class="form-input"
+              id="password"
+              placeholder="Enter your analytics password"
+              value="${config.password}"
+            />
+          </div>
+          <button class="btn" onclick="saveConfigAndStart()">Save & Start</button>
+        </div>
+      `;
+    }
+
+    // Save configuration and start
+    async function saveConfigAndStart() {
+      const siteUrl = document.getElementById('siteUrl').value.trim();
+      const password = document.getElementById('password').value;
+
+      if (!siteUrl || !password) {
+        alert('Please fill in all fields');
+        return;
+      }
+
+      config.siteUrl = siteUrl.replace(/\/$/, ''); // Remove trailing slash
+      config.password = password;
+      saveConfig();
+
+      // Authenticate
+      await authenticate();
+    }
+
+    // Authenticate with the API
+    async function authenticate() {
+      try {
+        const response = await fetch(`${config.siteUrl}/api/analytics/auth`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ password: config.password }),
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          startWidget();
+        } else {
+          alert('Authentication failed. Please check your password.');
+          showConfigForm();
+        }
+      } catch (error) {
+        alert('Failed to connect. Please check your site URL.');
+        showConfigForm();
+      }
+    }
+
+    // Fetch analytics data
+    async function fetchAnalytics() {
+      try {
+        const response = await fetch(`${config.siteUrl}/api/analytics/data?days=1`, {
+          credentials: 'include',
+        });
+
+        if (response.status === 401) {
+          // Re-authenticate
+          await authenticate();
+          return null;
+        }
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+
+        return await response.json();
+      } catch (error) {
+        console.error('Error fetching analytics:', error);
+        return null;
+      }
+    }
+
+    // Format number with commas
+    function formatNumber(num) {
+      return parseInt(num).toLocaleString();
+    }
+
+    // Format duration
+    function formatDuration(seconds) {
+      const sec = parseFloat(seconds);
+      const minutes = Math.floor(sec / 60);
+      const remainingSeconds = Math.floor(sec % 60);
+      return `${minutes}m ${remainingSeconds}s`;
+    }
+
+    // Render the widget
+    function renderWidget(data) {
+      const widget = document.getElementById('widget');
+      const now = new Date().toLocaleTimeString();
+
+      widget.innerHTML = `
+        <div class="header">
+          <div class="title">Analytics</div>
+          <div class="refresh-indicator"></div>
+        </div>
+
+        <div class="realtime-section">
+          <div class="realtime-label">Active Now</div>
+          <div class="realtime-value">${data.realtime.activeUsers}</div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-label">Today's Users</div>
+            <div class="stat-value">${formatNumber(data.overview.activeUsers)}</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Sessions</div>
+            <div class="stat-value">${formatNumber(data.overview.sessions)}</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Page Views</div>
+            <div class="stat-value">${formatNumber(data.overview.pageViews)}</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Avg. Duration</div>
+            <div class="stat-value" style="font-size: 18px;">${formatDuration(data.overview.avgSessionDuration)}</div>
+          </div>
+        </div>
+
+        <div class="top-sources">
+          <div class="section-title">Top Sources</div>
+          ${data.trafficSources.slice(0, 3).map(source => `
+            <div class="source-item">
+              <div class="source-name">${source.source}</div>
+              <div class="source-count">${source.sessions}</div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="last-updated">Last updated: ${now}</div>
+      `;
+    }
+
+    // Update the widget
+    async function updateWidget() {
+      const data = await fetchAnalytics();
+      if (data) {
+        renderWidget(data);
+      } else {
+        document.getElementById('widget').innerHTML = `
+          <div class="error">
+            <div style="font-weight: 600; margin-bottom: 5px;">Failed to load data</div>
+            <div style="font-size: 11px;">Check your connection and refresh</div>
+          </div>
+        `;
+      }
+    }
+
+    // Start the widget
+    function startWidget() {
+      updateWidget();
+      // Refresh every 2 minutes
+      setInterval(updateWidget, 2 * 60 * 1000);
+    }
+
+    // Initialize
+    async function init() {
+      if (loadConfig() && config.siteUrl && config.password) {
+        await authenticate();
+      } else {
+        showConfigForm();
+      }
+    }
+
+    // Make functions globally accessible
+    window.saveConfigAndStart = saveConfigAndStart;
+
+    // Start the widget
+    init();
+  </script>
+</body>
+</html>
