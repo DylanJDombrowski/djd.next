@@ -166,8 +166,19 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(data);
   } catch (error) {
     console.error('Analytics API Error:', error);
+
+    // Return detailed error for debugging
+    const errorMessage = error instanceof Error ? error.message : 'Failed to fetch analytics data';
+    const errorDetails = error instanceof Error ? error.stack : String(error);
+
+    console.error('Error details:', errorDetails);
+
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Failed to fetch analytics data' },
+      {
+        error: errorMessage,
+        details: process.env.NODE_ENV === 'development' ? errorDetails : undefined,
+        hint: 'Check that: 1) Google Analytics Data API is enabled, 2) Service account has Viewer access to GA4 property, 3) Property ID is correct'
+      },
       { status: 500 }
     );
   }
