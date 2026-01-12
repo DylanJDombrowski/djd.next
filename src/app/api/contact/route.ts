@@ -31,7 +31,7 @@ ${message}
     // Send email via Gmail
     await transporter.sendMail({
       from: `"${name}" <${process.env.GMAIL_USER}>`,
-      to: "me@dylanjdombrowski.com", // Your email address
+      to: "dyland601@gmail.com", // Your email address
       subject: `Contact: ${subject || "Website Inquiry"}`,
       text: formattedMessage,
       replyTo: email,
