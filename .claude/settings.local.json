@@ -24,7 +24,10 @@
       "Bash(npm install:*)",
       "Bash(git -C /Users/dylandombro/Projects/djd.next diff --stat)",
       "Bash(git -C /Users/dylandombro/Projects/djd.next add:*)",
-      "Bash(git -C /Users/dylandombro/Projects/djd.next commit -m \"$\\(cat <<''EOF''\nupgrade to Next.js 16\n\n- Update Next.js 15.3.8 → 16.1.1\n- Rename middleware.ts to proxy.ts \\(new convention\\)\n- Update dynamic route params to async API\n- Fixes all npm audit vulnerabilities\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
+      "Bash(git -C /Users/dylandombro/Projects/djd.next commit -m \"$\\(cat <<''EOF''\nupgrade to Next.js 16\n\n- Update Next.js 15.3.8 → 16.1.1\n- Rename middleware.ts to proxy.ts \\(new convention\\)\n- Update dynamic route params to async API\n- Fixes all npm audit vulnerabilities\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nfix: send contact form emails directly to Gmail inbox\n\nBypass Cloudflare email routing to avoid Gmail self-send filtering issues.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git push:*)"
     ],
     "deny": [],
     "ask": []

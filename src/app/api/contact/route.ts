@@ -11,12 +11,36 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+async function verifyTurnstileToken(token: string): Promise<boolean> {
+  const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({
+      secret: process.env.TURNSTILE_SECRET_KEY!,
+      response: token,
+    }),
+  });
+
+  const data = await response.json();
+  return data.success === true;
+}
+
 export async function POST(request: Request) {
   try {
-    const { name, email, subject, message } = await request.json();
+    const { name, email, subject, message, turnstileToken } = await request.json();
 
     if (!name || !email || !message) {
       return NextResponse.json({ error: "Name, email, and message are required fields" }, { status: 400 });
+    }
+
+    // Verify Turnstile token
+    if (!turnstileToken) {
+      return NextResponse.json({ error: "Please complete the captcha verification" }, { status: 400 });
+    }
+
+    const isValidToken = await verifyTurnstileToken(turnstileToken);
+    if (!isValidToken) {
+      return NextResponse.json({ error: "Captcha verification failed. Please try again." }, { status: 400 });
     }
 
     const formattedMessage = `

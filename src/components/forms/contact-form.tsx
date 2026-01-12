@@ -1,6 +1,7 @@
 // src/components/forms/contact-form.tsx
 "use client";
 
+import { Turnstile } from "@marsidev/react-turnstile";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { FiAlertCircle, FiCheckCircle, FiLoader } from "react-icons/fi";
@@ -15,6 +16,7 @@ export default function ContactForm() {
 
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -31,7 +33,7 @@ export default function ContactForm() {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, turnstileToken }),
       });
 
       // We now check if the status code is in the 2xx range
@@ -42,7 +44,8 @@ export default function ContactForm() {
       }
 
       setStatus("success");
-      setFormData({ name: "", email: "", subject: "", message: "" }); // Clear form on success
+      setFormData({ name: "", email: "", subject: "", message: "" });
+      setTurnstileToken(null);
     } catch (error) {
       setStatus("error");
       const message = error instanceof Error ? error.message : "An unknown error occurred.";
@@ -58,7 +61,8 @@ export default function ContactForm() {
 
   const isEmailValid = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-  const isFormValid = formData.name.trim() !== "" && isEmailValid(formData.email) && formData.message.trim() !== "";
+  const isFormValid =
+    formData.name.trim() !== "" && isEmailValid(formData.email) && formData.message.trim() !== "" && turnstileToken !== null;
 
   return (
     <div className="relative">
@@ -156,7 +160,14 @@ export default function ContactForm() {
           />
         </div>
 
-        <div>
+        <div className="space-y-4">
+          <Turnstile
+            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+            onSuccess={setTurnstileToken}
+            onError={() => setTurnstileToken(null)}
+            onExpire={() => setTurnstileToken(null)}
+          />
+
           <button
             type="submit"
             disabled={status === "loading" || !isFormValid}
