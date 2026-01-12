@@ -48,10 +48,10 @@ export default function ContactPage() {
               </div>
               <h3 className="text-xl font-semibold mb-2">Email</h3>
               <a
-                href="mailto:contact@dylanjdombrowski.com"
+                href="mailto:me@dylanjdombrowski.com"
                 className="text-navy/80 hover:text-orange"
               >
-                dylan@dylanjdombrowski.com
+                me@dylanjdombrowski.com
               </a>
             </div>
 
