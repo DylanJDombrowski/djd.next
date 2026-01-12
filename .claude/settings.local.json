@@ -3,7 +3,12 @@
     "allow": [
       "Bash(npx shadcn@latest init:*)",
       "Bash(npx shadcn@latest add:*)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(git -C /Users/dylandombro/Projects/djd.next status)",
+      "Bash(git -C /Users/dylandombro/Projects/djd.next diff)",
+      "Bash(git -C /Users/dylandombro/Projects/djd.next log --oneline -5)",
+      "Bash(git -C /Users/dylandombro/Projects/djd.next add src/app/api/contact/route.ts)",
+      "Bash(git -C /Users/dylandombro/Projects/djd.next commit -m \"$\\(cat <<''EOF''\nupdate contact form email\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
     ],
     "deny": [],
     "ask": []
