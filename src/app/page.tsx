@@ -7,40 +7,40 @@ import { Separator } from "@/components/ui/separator";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight } from "lucide-react";
 import SubstackPosts from "@/components/substack/substack-posts";
-import SubscribeWidget from "@/components/substack/subscribe-widget";
+import FeaturedProjects from "@/components/projects/featured-projects";
+import SidelineSpotlight from "@/components/projects/sideline-spotlight";
 
 export const metadata: Metadata = {
-  title: "Dylan J. Dombrowski - Developer & Writer",
+  title: "Dylan J. Dombrowski - Full-Stack Developer",
   description:
-    "Full-stack developer and writer sharing ideas about software, business, and life. Available for web development projects.",
+    "Full-stack developer building web applications for businesses and startups. View my portfolio and get in touch for your next project.",
 };
 
 export default async function HomePage() {
   return (
     <main className="min-h-screen">
-      {/* Hero Section */}
-      <section className="py-20 md:py-32 bg-gradient-to-b from-secondary/50 to-background">
+      {/* Hero Section - Simplified, Project-Focused */}
+      <section className="py-16 md:py-24 bg-gradient-to-b from-secondary/50 to-background">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center space-y-6">
             <Badge variant="secondary" className="mb-4">
-              Open to side projects
+              Available for projects
             </Badge>
 
             <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
               Hi, I&apos;m Dylan.{" "}
-              <span className="text-orange">Developer & Writer</span>
+              <span className="text-orange">I build things.</span>
             </h1>
 
             <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
-              I build software and share ideas about technology, business, and life.
-              From pizza kitchens to full-stack development, I&apos;ve learned that great things
-              come from curiosity, discipline, and shipping consistently.
+              Full-stack developer crafting web applications for businesses and startups.
+              From SaaS platforms to client websites, I turn ideas into polished products.
             </p>
 
             <div className="flex flex-wrap justify-center gap-4 pt-6">
               <Button asChild size="lg" className="bg-orange hover:bg-orange/90">
-                <Link href="https://dylandombro.substack.com/?r=sisxq&utm_campaign=pub-share-checklist&utm_source=dylanjdombrowski&utm_medium=website" target="_blank" rel="noopener noreferrer">
-                  Read my writing <ArrowRight className="ml-2 h-4 w-4" />
+                <Link href="#projects">
+                  View my work <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
               <Button asChild variant="outline" size="lg">
@@ -53,24 +53,28 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* Featured Projects */}
+      <div id="projects">
+        <FeaturedProjects />
+      </div>
+
+      {/* Sideline Spotlight - Special SaaS Section */}
+      <SidelineSpotlight />
+
       <Separator className="max-w-5xl mx-auto" />
 
-      {/* Latest Writing from Substack */}
-      <section className="py-20 bg-background">
+      {/* Latest Writing - Demoted */}
+      <section className="py-16 bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
-            <div className="mb-12 text-center">
+            <div className="mb-10 text-center">
               <h2 className="text-3xl font-bold mb-3">Latest Writing</h2>
               <p className="text-muted-foreground">
-                Thoughts on software, business, and life from my Substack
+                Thoughts on software, business, and life
               </p>
             </div>
 
-            <SubstackPosts limit={3} showViewAll={false} />
-
-            <div className="mt-12">
-              <SubscribeWidget />
-            </div>
+            <SubstackPosts limit={2} showViewAll={true} />
           </div>
         </div>
       </section>

@@ -12,6 +12,12 @@ export interface Project {
   projectDate?: string;
   technologies?: string[];
   projectUrl?: string | null;
+  // New fields for portfolio showcase
+  featured?: boolean;
+  order?: number;
+  status?: "live" | "building" | "concept";
+  tagline?: string;
+  features?: string[];
 }
 
 export interface Service {
@@ -26,6 +32,16 @@ export interface Service {
 
 export interface HomeContent {
   featuredServices: Service[];
+}
+
+export interface ProjectCardProps {
+  title: string;
+  description: string;
+  slug: string;
+  imageUrl?: string | null;
+  client?: string;
+  date?: string;
+  technologies?: string[];
 }
 
 export function getSlugString(slug: { current: string } | string): string {
