@@ -35,7 +35,9 @@
       "Bash(git commit -m \"$\\(cat <<''EOF''\nfeat: restructure homepage to showcase projects\n\n- Add featured projects section with Sideline, MVX, and Trailhead\n- Create dedicated Sideline spotlight section for SaaS promotion\n- Demote Substack from hero to smaller section below projects\n- Add new project data for Sideline and Trailhead Psychology\n- Create FeaturedProjectCard, FeaturedProjects, and SidelineSpotlight components\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
       "Bash(git -C /Users/dylandombro/Projects/djd.next push)",
       "Bash(git -C /Users/dylandombro/Projects/djd.next diff --stat package-lock.json)",
-      "Bash(git -C /Users/dylandombro/Projects/djd.next commit -m \"$\\(cat <<''EOF''\nfix: update Next.js to patch security vulnerabilities\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
+      "Bash(git -C /Users/dylandombro/Projects/djd.next commit -m \"$\\(cat <<''EOF''\nfix: update Next.js to patch security vulnerabilities\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(pkill:*)",
+      "Bash(git -C /Users/dylandombro/Projects/djd.next commit -m \"$\\(cat <<''EOF''\nfeat: add project case studies and update SEO\n\n- Write detailed case study content for Sideline, MVX, and Trailhead\n- Update project detail page to render body content with formatting\n- Update root metadata to focus on projects over writing\n- Add OG image for social sharing\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
     ],
     "deny": [],
     "ask": []
