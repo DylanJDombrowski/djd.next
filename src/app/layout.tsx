@@ -11,11 +11,11 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   metadataBase: new URL('https://dylanjdombrowski.com'),
   title: {
-    default: "Dylan J. Dombrowski - Developer & Writer",
+    default: "Dylan J. Dombrowski - Full-Stack Developer",
     template: "%s | Dylan J. Dombrowski"
   },
-  description: "Full-stack developer and writer sharing ideas about software, business, and life. Available for web development projects and consulting.",
-  keywords: ["web development", "full-stack developer", "freelance developer", "technical writing", "software engineering", "Next.js", "React", "TypeScript"],
+  description: "Full-stack developer building web applications for businesses and startups. From SaaS platforms to client websites, I turn ideas into polished products.",
+  keywords: ["web development", "full-stack developer", "freelance developer", "SaaS development", "Next.js developer", "React", "TypeScript", "Supabase", "web applications"],
   authors: [{ name: "Dylan J. Dombrowski" }],
   creator: "Dylan J. Dombrowski",
   openGraph: {
@@ -23,21 +23,21 @@ export const metadata = {
     locale: "en_US",
     url: "https://dylanjdombrowski.com",
     siteName: "Dylan J. Dombrowski",
-    title: "Dylan J. Dombrowski - Developer & Writer",
-    description: "Full-stack developer and writer sharing ideas about software, business, and life. Available for web development projects and consulting.",
+    title: "Dylan J. Dombrowski - Full-Stack Developer",
+    description: "Full-stack developer building web applications for businesses and startups. View my portfolio and get in touch for your next project.",
     images: [
       {
-        url: "/og-image.png", // We'll note this needs to be created
+        url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Dylan J. Dombrowski - Developer & Writer",
+        alt: "Dylan J. Dombrowski - Full-Stack Developer",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Dylan J. Dombrowski - Developer & Writer",
-    description: "Full-stack developer and writer sharing ideas about software, business, and life.",
+    title: "Dylan J. Dombrowski - Full-Stack Developer",
+    description: "Full-stack developer building web applications for businesses and startups.",
     creator: "@dylandombro",
     images: ["/og-image.png"],
   },

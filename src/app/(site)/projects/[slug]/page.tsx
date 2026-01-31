@@ -82,6 +82,31 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             </div>
           )}
 
+          {project.body && (
+            <div className="prose prose-lg dark:prose-invert max-w-none mb-12">
+              {project.body.split('\n\n').map((block, index) => {
+                if (block.startsWith('## ')) {
+                  return <h2 key={index} className="text-2xl font-bold mt-8 mb-4">{block.replace('## ', '')}</h2>;
+                }
+                if (block.startsWith('- **')) {
+                  const items = block.split('\n').filter(line => line.trim());
+                  return (
+                    <ul key={index} className="list-disc pl-6 space-y-2 my-4">
+                      {items.map((item, i) => {
+                        const match = item.match(/^- \*\*(.+?)\*\*(.*)$/);
+                        if (match) {
+                          return <li key={i}><strong>{match[1]}</strong>{match[2]}</li>;
+                        }
+                        return <li key={i}>{item.replace(/^- /, '')}</li>;
+                      })}
+                    </ul>
+                  );
+                }
+                return <p key={index} className="text-muted-foreground mb-4">{block}</p>;
+              })}
+            </div>
+          )}
+
           <div className="mt-12 p-8 bg-beige rounded-lg">
             <h2 className="text-2xl font-semibold mb-4">Interested in a Similar Project?</h2>
             <p className="mb-6">Let&apos;s discuss how I can help you build something similar for your business.</p>
